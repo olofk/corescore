@@ -58,12 +58,12 @@ generate:
   corescorecore_cyc1000:
     generator: corescorecore
     parameters:
-      count : 32
+      count : 35
 
   corescorecore_nexys_a7:
     generator: corescorecore
     parameters:
-      count : 190
+      count : 243
 
 generators:
   corescorecore:

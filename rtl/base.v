@@ -15,7 +15,7 @@ module base
    parameter memfile = "";
    parameter memsize = 8192;
    parameter sim = 0;
-   parameter with_csr = 1;
+   parameter with_csr = 0;
 
    wire 	timer_irq;
 
