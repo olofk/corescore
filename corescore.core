@@ -32,6 +32,10 @@ filesets:
       - data/nexys_a7.tcl : {file_type : tclSource}
       - data/nexys_a7.xdc : {file_type : xdc}
 
+  tb:
+    files:
+      - tb/corescore_tb.cpp : {file_type : cppSource}
+
 targets:
   cyc1000:
     default_tool: quartus
@@ -53,6 +57,17 @@ targets:
       vivado: {part : xc7a100tcsg324-1}
     toplevel : corescore_nexys_a7
 
+  sim:
+    default_tool : verilator
+    description : Verilator testbench with 10 cores + SERV emitter
+    filesets : [rtl, generic, tb]
+    generate : [corescorecore_sim]
+    parameters : [uart_baudrate=57600, vcd]
+    tools:
+      verilator:
+        verilator_options : [--trace]
+    toplevel : corescore_generic
+
 generate:
   corescorecore_cyc1000:
     generator: corescorecore
@@ -64,8 +79,23 @@ generate:
     parameters:
       count : 268
 
+  corescorecore_sim:
+    generator: corescorecore
+    parameters:
+      count : 10
+
 generators:
   corescorecore:
     interpreter: python
     command: sw/corescorecore_gen.py
+
+parameters:
+  uart_baudrate:
+    datatype : int
+    description : Treat q output as an UART with the specified baudrate (0 or omitted parameter disables UART decoding)
+    paramtype : plusarg
+
+  vcd:
+    datatype : bool
+    paramtype : plusarg
 
