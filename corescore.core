@@ -36,6 +36,13 @@ filesets:
     files:
       - tb/corescore_tb.cpp : {file_type : cppSource}
 
+  tinyfpga_bx:
+    files:
+      - data/tinyfpga_bx.pcf : {file_type : PCF}
+      - data/tinyfpga_bx.py : {file_type : user, copyto : constraints.py}
+      - rtl/corescore_tinyfpga_bx.v : {file_type : verilogSource}
+    depend : [usbserial, fusesoc:utils:generators]
+
 targets:
   cyc1000:
     default_tool: quartus
@@ -68,6 +75,17 @@ targets:
         verilator_options : [--trace]
     toplevel : corescore_generic
 
+  tinyfpga_bx:
+    default_tool: icestorm
+    description: TinyFPGA BX with 11 cores + USB emitter
+    filesets: [rtl, tinyfpga_bx]
+    generate: [corescorecore_tinyfpga_bx, tinyfpga_bx_pll]
+    tools:
+      icestorm:
+        pnr: next
+        nextpnr_options: [--pre-pack, constraints.py, --lp8k, --package, cm81]
+    toplevel: corescore_tinyfpga_bx
+
 generate:
   corescorecore_cyc1000:
     generator: corescorecore
@@ -83,6 +101,18 @@ generate:
     generator: corescorecore
     parameters:
       count : 10
+
+  corescorecore_tinyfpga_bx:
+    generator: corescorecore
+    parameters:
+      count : 11
+
+  tinyfpga_bx_pll:
+    generator: icepll
+    parameters:
+      freq_in  : 16
+      freq_out : 48
+      module: true
 
 generators:
   corescorecore:
