@@ -6,27 +6,28 @@ import subprocess
 
 from verilogwriter import Instance, ModulePort, Parameter, Port, VerilogWriter, Wire
 
-HEX_TEMPLATE = '''00000013
-00000517
-03c50513
-c00005b7
-0b400293
-00558023
-00050283
-00150513
-fe029ae3
-1002e293
-00559023
-000022b7
-71028293
-fff28293
-fe029ee3
-fc5ff06f
-65726f43
-20{}{}{}
-73796173
-6c656820
-000a6f6c
+HEX_TEMPLATE = '''@0000
+13 00 00 00
+17 05 00 00
+13 05 c5 03
+b7 05 00 c0
+93 02 40 0b
+23 80 55 00
+83 02 05 00
+13 05 15 00
+e3 9a 02 fe
+93 e2 02 10
+23 90 55 00
+b7 22 00 00
+93 82 02 71
+93 82 f2 ff
+e3 9e 02 fe
+6f f0 5f fc
+43 6f 72 65
+{} {} {} 20
+73 61 79 73
+20 68 65 6c
+6c 6f 0a 00
 '''
 
 class CoreScoreCoreGenerator(Generator):
@@ -41,9 +42,9 @@ class CoreScoreCoreGenerator(Generator):
             #Create hex file
             with open(memfile, 'w') as f:
                 _s = '{:03}'.format(idx)
-                f.write(HEX_TEMPLATE.format(hex(ord(_s[2]))[2:],
+                f.write(HEX_TEMPLATE.format(hex(ord(_s[0]))[2:],
                                             hex(ord(_s[1]))[2:],
-                                            hex(ord(_s[0]))[2:]))
+                                            hex(ord(_s[2]))[2:]))
             files.append({memfile : {'file_type' : 'user', 'copyto' : memfile }})
 
         self.gen_corescorecore(count)
@@ -68,12 +69,6 @@ class CoreScoreCoreGenerator(Generator):
             base_ports = [
                 Port('i_clk', 'i_clk'),
                 Port('i_rst', 'i_rst'),
-                Port('o_wb_coll_adr', ''),
-                Port('o_wb_coll_dat', ''),
-                Port('o_wb_coll_we' , ''),
-                Port('o_wb_coll_stb', ''),
-                Port('i_wb_coll_rdt', "32'd0"),
-                Port('i_wb_coll_ack', "1'b0"),
                 Port('o_tdata'  , 'tdata[{}:{}]'.format(idx*8+7,idx*8)),
                 Port('o_tlast'  , 'tlast[{}]'.format(idx)),
                 Port('o_tvalid' , 'tvalid[{}]'.format(idx)),
@@ -81,7 +76,7 @@ class CoreScoreCoreGenerator(Generator):
             ]
             corescorecore.add(Instance('base', 'core_'+str(idx),
                                    [Parameter('memfile', '"core_{}.hex"'.format(idx)),
-                                    Parameter('memsize', '84')],
+                                    Parameter('memsize', '256')],
                                    base_ports))
 
         arbports = [

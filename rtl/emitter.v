@@ -8,7 +8,7 @@ module emitter
    output wire 	    o_uart_tx);
 
    parameter memfile = "";
-   parameter memsize = 128;
+   parameter memsize = 256;
    parameter sim = 0;
    parameter with_csr = 0;
 
