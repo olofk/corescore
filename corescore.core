@@ -43,6 +43,13 @@ filesets:
       - rtl/corescore_tinyfpga_bx.v : {file_type : verilogSource}
     depend : [usbserial, fusesoc:utils:generators]
 
+  zcu106:
+    files:
+      - rtl/corescore_zcu106_clock_gen.v : {file_type : verilogSource}
+      - rtl/corescore_zcu106.v : {file_type : verilogSource}
+      - data/vivado_waive.tcl : {file_type : tclSource}
+      - data/zcu106.xdc : {file_type : xdc}
+
 targets:
   cyc1000:
     default_tool: quartus
@@ -86,6 +93,14 @@ targets:
         nextpnr_options: [--pre-pack, constraints.py, --lp8k, --package, cm81]
     toplevel: corescore_tinyfpga_bx
 
+  zcu106:
+    default_tool: vivado
+    filesets : [rtl, zcu106]
+    generate : [corescorecore_zcu106]
+    tools:
+      vivado: {part : xczu7ev-ffvc1156-2-e}
+    toplevel : corescore_zcu106
+
 generate:
   corescorecore_cyc1000:
     generator: corescorecore
@@ -106,6 +121,11 @@ generate:
     generator: corescorecore
     parameters:
       count : 11
+
+  corescorecore_zcu106:
+    generator: corescorecore
+    parameters:
+      count : 940
 
   tinyfpga_bx_pll:
     generator: icepll
