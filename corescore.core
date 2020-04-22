@@ -41,7 +41,7 @@ filesets:
       - data/tinyfpga_bx.pcf : {file_type : PCF}
       - data/tinyfpga_bx.py : {file_type : user, copyto : constraints.py}
       - rtl/corescore_tinyfpga_bx.v : {file_type : verilogSource}
-    depend : [usbserial, fusesoc:utils:generators]
+    depend : [usbserial, "fusesoc:utils:generators"]
 
   zcu106:
     files:
