@@ -14,6 +14,11 @@ filesets:
     file_type : verilogSource
     depend : [servant, serving, verilog-axis]
 
+  alhambra_II:
+    files:
+      - rtl/corescore_alhambra_II.v : {file_type : verilogSource}
+      - data/alhambra_II.pcf : {file_type : PCF}
+
   cyc1000:
     files:
       - data/cyc1000.tcl : {file_type : tclSource}
@@ -56,6 +61,17 @@ filesets:
       - data/zcu106.xdc : {file_type : xdc}
 
 targets:
+  alhambra_II:
+    default_tool : icestorm
+    description: Alhambra II iCE40-HX4K based open-source hardware board
+    filesets : [rtl, alhambra_II]
+    generate: [corescorecore_alhambra_II]
+    tools:
+      icestorm:
+        nextpnr_options: [--hx8k, --package, "tq144:4k"]
+        pnr: next
+    toplevel : corescore_alhambra_II
+
   cyc1000:
     default_tool: quartus
     description : TrenzElectronics cyc1000 with 60 cores + SERV emitter
@@ -118,6 +134,11 @@ targets:
     toplevel : corescore_zcu106
 
 generate:
+  corescorecore_alhambra_II:
+    generator: corescorecore
+    parameters:
+      count : 1
+
   corescorecore_cyc1000:
     generator: corescorecore
     parameters:
@@ -169,4 +190,3 @@ parameters:
   vcd:
     datatype : bool
     paramtype : plusarg
-
