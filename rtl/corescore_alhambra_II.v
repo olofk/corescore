@@ -15,42 +15,11 @@ module corescore_alhambra_II
    //Mirror locked PLL to LED
    assign locked_led = locked;
 
-//   SB_HFOSC inthosc
-//     (
-//      .CLKHFPU(1'b1),
-//      .CLKHFEN(1'b1),
-//      .CLKHF(clk48));
-
-   SB_PLL40_CORE
-     #(
-       .FEEDBACK_PATH("SIMPLE"),
-       .DIVR(4'b0010),
-       .DIVF(7'b0111111),
-       .DIVQ(3'b110),
-       .FILTER_RANGE(3'b001))
-   pll
-     (.LOCK(locked),
-      .RESETB(1'b1),
-      .BYPASS(1'b0),
-      .REFERENCECLK(i_clk),
-      .PLLOUTCORE(clk));
-
-/*   SB_RGBA_DRV
-     #(
-       .CURRENT_MODE ("0b1"),
-       .RGB0_CURRENT ("0b000111"),
-       .RGB1_CURRENT ("0b000111"),
-       .RGB2_CURRENT ("0b000111"))
-   RGBA_DRIVER
-     (
-      .CURREN(1'b1),
-      .RGBLEDEN(1'b1),
-      .RGB0PWM(o_uart_tx),
-      .RGB1PWM(o_uart_tx),
-      .RGB2PWM(o_uart_tx),
-      .RGB0(g),
-      .RGB1(b),
-      .RGB2(r));*/
+  //Create a 16MHz clock from 12 using PLL
+  pll pll48
+    (.clock_in  (i_clk),
+     .clock_out (clk),
+     .locked    (locked));
 
    reg 	     rst = 1'b1;
 
