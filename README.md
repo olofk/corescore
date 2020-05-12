@@ -24,7 +24,7 @@ CoreScore is an award-giving benchmark for FPGAs and their synthesis/P&R tools. 
 
        fusesoc core show corescore
 
-5. Build one of the supported targets (at this time only cyc1000 is supported)
+5. Build one of the supported targets (cyc1000 is one of the currently supported cores)
 
        fusesoc run --target=cyc1000 corescore
 

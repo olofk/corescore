@@ -21,6 +21,13 @@ filesets:
       - rtl/cyc1000_clock_gen.v : {file_type : verilogSource}
       - rtl/corescore_cyc1000.v : {file_type : verilogSource}
 
+  cisco-hwic-3g-cdma:
+    files:
+      - data/cisco-hwic-3g-cdma.tcl : {file_type : tclSource}
+      - data/cisco-hwic-3g-cdma.sdc : {file_type : SDC}
+      - rtl/cisco_hwic_3g_cdma_clock_gen.v : {file_type : verilogSource}
+      - rtl/corescore_cisco_hwic_3g_cdma.v : {file_type : verilogSource}
+
   generic:
     files:
       - rtl/corescore_generic.v : {file_type : verilogSource}
@@ -73,6 +80,17 @@ targets:
         family : Cyclone 10 LP
         device : 10CL025YU256C8G
     toplevel : corescore_cyc1000
+
+  cisco-hwic-3g-cdma:
+    default_tool: quartus
+    description : Cisco HWIC-3G-CMDA with xx cores + SERV emitter
+    filesets : [rtl, cisco-hwic-3g-cdma]
+    generate : [corescorecore_cisco_hwic_3g_cdma]
+    tools:
+      quartus:
+        family : Cyclone II
+        device : EP2C35F484C8
+    toplevel : corescore_cisco_hwic_3g_cdma
 
   nexys_a7:
     default_tool: vivado
@@ -141,6 +159,11 @@ generate:
     generator: corescorecore
     parameters:
       count : 60
+
+  corescorecore_cisco_hwic_3g_cdma:
+    generator: corescorecore
+    parameters:
+      count : 84
 
   corescorecore_nexys_a7:
     generator: corescorecore
