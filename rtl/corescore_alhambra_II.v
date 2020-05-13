@@ -2,12 +2,8 @@
 module corescore_alhambra_II
   (
    input i_clk,
-   output wire q,
    output wire locked_led,
    output wire o_uart_tx);
-
-   //Mirror UART output to LED
-   assign q = o_uart_tx;
 
    wire        clk;
    wire        locked;
@@ -15,7 +11,7 @@ module corescore_alhambra_II
    //Mirror locked PLL to LED
    assign locked_led = locked;
 
-  //Create a 16MHz clock from 12 using PLL
+  //Create a 16MHz clock from 12MHz using PLL
   pll pll48
     (.clock_in  (i_clk),
      .clock_out (clk),
