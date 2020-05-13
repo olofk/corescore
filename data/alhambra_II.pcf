@@ -1,4 +1,3 @@
 set_io i_clk 49
 set_io  o_uart_tx 61
-set_io q 45
-set_io locked_led 37
+set_io locked_led 45
