@@ -69,7 +69,7 @@ targets:
     generate: [corescorecore_alhambra_II, alhambra_II_pll]
     tools:
       icestorm:
-        nextpnr_options: [--hx8k, --package, "tq144:4k", --freq, 48]
+        nextpnr_options: [--hx8k, --package, "tq144:4k", --freq, 16]
         pnr: next
     toplevel : corescore_alhambra_II
 
@@ -138,7 +138,7 @@ generate:
   corescorecore_alhambra_II:
     generator: corescorecore
     parameters:
-      count : 12  
+      count : 12
 
   corescorecore_cyc1000:
     generator: corescorecore
