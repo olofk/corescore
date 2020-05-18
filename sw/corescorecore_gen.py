@@ -6,12 +6,62 @@ import subprocess
 
 from verilogwriter import Instance, ModulePort, Parameter, Port, VerilogWriter, Wire
 
+#HEX_TEMPLATE implements the following program
+#/*
+#* Read a string and send as packet to emitter
+#*
+#*
+#*/
+##define AXIS_ADDR 0xC0000000
+#
+#	/*
+#	a0 = String address
+#	a1 = Emitter FIFO address
+#	t0 = Character to write
+#	*/
+#
+#.globl _start
+#_start:
+#	nop
+#	/* Load string address to a0 */
+#	la	a0, str
+#
+#	/* Load axis address to a1 */
+#	li	a1, AXIS_ADDR
+#
+#	/* Write MSGPack string header (0b101xxxxx + len) */
+#	li	t0, 0xa0+23
+#
+#next:	/* Write to FIFO */
+#	sb	t0, 0(a1)
+#
+#	/* Read byte from str */
+#	lb	t0, 0(a0)
+#
+#	/* Load next address */
+#	addi	a0, a0, 1
+#
+#	/* Check if this was last byte in packet */
+#	bnez	t0, next
+#
+#	/* Write packet end to FIFO */
+#	ori	t0, t0, 0x100
+#	sh	t0, 0(a1)
+#
+#	li	t0, 10000
+#loop:	addi	t0, t0, -1
+#	bnez	t0, loop
+#	j _start
+#
+#str:
+#	.string "Core XXXXX says hello\n"
+
 HEX_TEMPLATE = '''@0000
 13 00 00 00
 17 05 00 00
 13 05 c5 03
 b7 05 00 c0
-93 02 40 0b
+93 02 70 0b
 23 80 55 00
 83 02 05 00
 13 05 15 00
@@ -23,13 +73,13 @@ b7 22 00 00
 93 82 f2 ff
 e3 9e 02 fe
 6f f0 5f fc
-43 6f 72 65
-{} {} {} 20
-73 61 79 73
-20 68 65 6c
-6c 6f 0a 00
+43 6F 72 65
+20 {} {} {}
+{} {} 20 73
+61 79 73 20
+68 65 6C 6C
+6F 0A 00 00
 '''
-
 class CoreScoreCoreGenerator(Generator):
     def run(self):
         files = [{'corescorecore.v' : {'file_type' : 'verilogSource'}}]
@@ -41,10 +91,12 @@ class CoreScoreCoreGenerator(Generator):
 
             #Create hex file
             with open(memfile, 'w') as f:
-                _s = '{:03}'.format(idx)
+                _s = '{:05}'.format(idx)
                 f.write(HEX_TEMPLATE.format(hex(ord(_s[0]))[2:],
                                             hex(ord(_s[1]))[2:],
-                                            hex(ord(_s[2]))[2:]))
+                                            hex(ord(_s[2]))[2:],
+                                            hex(ord(_s[3]))[2:],
+                                            hex(ord(_s[4]))[2:]))
             files.append({memfile : {'file_type' : 'user', 'copyto' : memfile }})
 
         self.gen_corescorecore(count)

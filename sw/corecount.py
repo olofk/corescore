@@ -41,7 +41,7 @@ def main(stdscr):
                 (y,x) = win.getyx()
                 win.addstr(curses.LINES//2-3,6,u[0:-1])
                 win.refresh()
-                n = int(u[4:7])
+                n = int(u[5:10])
                 if not (n in found_cores):
                     found_cores.append(n)
                     stdscr.addstr(10, 35, "Found {} cores".format(len(found_cores)))
