@@ -75,6 +75,13 @@ filesets:
       - data/vivado_waive.tcl : {file_type : tclSource}
       - data/zcu106.xdc : {file_type : xdc}
 
+  vcu118:
+    files:
+      - rtl/corescore_vcu118_clock_gen.v : {file_type : verilogSource}
+      - rtl/corescore_vcu118.v : {file_type : verilogSource}
+      - data/vivado_waive.tcl : {file_type : tclSource}
+      - data/vcu118.xdc : {file_type : xdc}
+
 targets:
   alhambra_II:
     default_tool : icestorm
@@ -163,6 +170,14 @@ targets:
         yosys_synth_options: [-dffe_min_ce_use, 8]
     toplevel : corescore_upduino2
 
+  vcu118:
+    default_tool: vivado
+    filesets : [rtl, vcu118]
+    generate : [corescorecore_vcu118]
+    tools:
+      vivado: {part : xcvu9p-flga2104-2l-e}
+    toplevel : corescore_vcu118
+
   zcu106:
     default_tool: vivado
     filesets : [rtl, zcu106]
@@ -211,6 +226,11 @@ generate:
     generator: corescorecore
     parameters:
       count : 10
+
+  corescorecore_vcu118:
+    generator: corescorecore
+    parameters:
+      count : 5087
 
   corescorecore_zcu106:
     generator: corescorecore
