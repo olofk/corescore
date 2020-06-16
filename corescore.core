@@ -244,7 +244,7 @@ generate:
   corescorecore_colorlight_5a75b:
     generator: corescorecore
     parameters:
-      count : 10
+      count : 55
 
   corescorecore_upduino2:
     generator: corescorecore
