@@ -63,6 +63,13 @@ filesets:
       - rtl/corescore_ulx3s_clock_gen.v : {file_type : verilogSource}
       - rtl/corescore_ulx3s.v : {file_type : verilogSource}
 
+  colorlight:
+    files:
+      - data/colorlight_5a75b.lpf : {file_type : LPF}
+      - rtl/ecppll.v : {file_type : verilogSource}
+      - rtl/corescore_colorlight_clock_gen.v : {file_type : verilogSource}
+      - rtl/corescore_colorlight.v : {file_type : verilogSource}
+
   upduino2:
     files:
       - rtl/corescore_upduino2.v : {file_type : verilogSource}
@@ -159,6 +166,18 @@ targets:
         nextpnr_options : [--package, CABGA381, --85k]
     toplevel: corescore_ulx3s
 
+  colorlight_5a75b:
+    default_tool: trellis
+    description : colorlight 5a75b version
+    filesets : [rtl, colorlight]
+    generate : [corescorecore_colorlight_5a75b]
+    tools:
+      diamond:
+        part : LFE5U-25F-6BG256C
+      trellis:
+        nextpnr_options : [--package, CABGA256, --25k]
+    toplevel: corescore_colorlight
+
   upduino2:
     default_tool : icestorm
     filesets : [rtl, upduino2]
@@ -221,6 +240,11 @@ generate:
     generator: corescorecore
     parameters:
       count : 100
+
+  corescorecore_colorlight_5a75b:
+    generator: corescorecore
+    parameters:
+      count : 55
 
   corescorecore_upduino2:
     generator: corescorecore
