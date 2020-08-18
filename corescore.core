@@ -277,7 +277,7 @@ generate:
 
 generators:
   corescorecore:
-    interpreter: python
+    interpreter: python3
     command: sw/corescorecore_gen.py
 
 parameters:
