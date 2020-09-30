@@ -41,6 +41,13 @@ filesets:
       - rtl/de0_nano_clock_gen.v : {file_type : verilogSource}
       - rtl/corescore_de0_nano.v : {file_type : verilogSource}
 
+  de5_net:
+    files:
+      - data/de5_net.sdc : {file_type : SDC}
+      - data/de5_net.tcl : {file_type : tclSource}
+      - rtl/de5_net_clock_gen.v : {file_type : verilogSource}
+      - rtl/corescore_de5_net.v : {file_type : verilogSource}
+
   generic:
     files:
       - rtl/corescore_generic.v : {file_type : verilogSource}
@@ -139,6 +146,16 @@ targets:
         family : Cyclone IV E
         device : EP4CE22F17C6
     toplevel: corescore_de0_nano
+
+  de5_net:
+    default_tool : quartus
+    filesets : [rtl, de5_net]
+    generate : [corescorecore_de5_net]
+    tools:
+      quartus:
+        family : Stratix V
+        device : 5SGXEA7N2F45C2
+    toplevel: corescore_de5_net
 
   nexys_a7:
     default_tool: vivado
@@ -242,6 +259,11 @@ generate:
     generator: corescorecore
     parameters:
       count : 61
+
+  corescorecore_de5_net:
+    generator: corescorecore
+    parameters:
+      count : 1568
 
   corescorecore_nexys_a7:
     generator: corescorecore
