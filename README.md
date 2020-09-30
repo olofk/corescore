@@ -32,4 +32,4 @@ CoreScore is an award-giving benchmark for FPGAs and their synthesis/P&R tools. 
 
 7. Run the corecount utility (Might need to adjust for the correct UART port)
 
-       python fusesoc_libraries/corescore/sw/corecount.py
+       python3 fusesoc_libraries/corescore/sw/corecount.py /dev/ttyUSB0
