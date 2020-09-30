@@ -35,4 +35,4 @@ Some more background about CoreScore can be found in the [SERV introduction vide
 
 7. Run the corecount utility (Might need to adjust for the correct UART port)
 
-       python fusesoc_libraries/corescore/sw/corecount.py
+       python3 fusesoc_libraries/corescore/sw/corecount.py /dev/ttyUSB0
