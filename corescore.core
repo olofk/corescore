@@ -89,6 +89,11 @@ filesets:
       - rtl/corescore_upduino2.v : {file_type : verilogSource}
       - data/upduino2.pcf : {file_type : PCF}
 
+  icesugar:
+    files:
+      - rtl/corescore_icesugar.v : {file_type : verilogSource}
+      - data/icesugar.pcf : {file_type : PCF}
+
   zcu106:
     files:
       - rtl/corescore_zcu106_clock_gen.v : {file_type : verilogSource}
@@ -223,6 +228,18 @@ targets:
         yosys_synth_options: [-dffe_min_ce_use, 8]
     toplevel : corescore_upduino2
 
+  icesugar:
+    default_tool : icestorm
+    description : iCE40UP5K Development Board by MuseLab
+    filesets : [rtl, icesugar]
+    generate: [corescorecore_icesugar]
+    tools:
+      icestorm:
+        nextpnr_options: [--package, sg48, --up5k, --freq, 16]
+        pnr: next
+        yosys_synth_options: [-dffe_min_ce_use, 8]
+    toplevel : corescore_icesugar
+
   vcu118:
     default_tool: vivado
     filesets : [rtl, vcu118]
@@ -291,6 +308,11 @@ generate:
       count : 55
 
   corescorecore_upduino2:
+    generator: corescorecore
+    parameters:
+      count : 10
+
+  corescorecore_icesugar:
     generator: corescorecore
     parameters:
       count : 10
