@@ -1,3 +1,5 @@
+![CoreScore logo](corescore.png)
+
 # CoreScore
 
 ## Background
