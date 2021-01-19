@@ -103,6 +103,13 @@ filesets:
       - data/vivado_waive.tcl : {file_type : tclSource}
       - data/vcu118.xdc : {file_type : xdc}
 
+  haps_dx7:
+    files:
+      - rtl/corescore_haps_dx7_clock_gen.v : {file_type : verilogSource}
+      - rtl/corescore_haps_dx7.v : {file_type : verilogSource}
+      - data/vivado_waive.tcl : {file_type : tclSource}
+      - data/haps_dx7.xdc : {file_type : xdc}
+
 targets:
   alhambra_II:
     default_tool : icestorm
@@ -231,6 +238,14 @@ targets:
       vivado: {part : xcvu9p-flga2104-2l-e}
     toplevel : corescore_vcu118
 
+  haps_dx7:
+    default_tool: vivado
+    filesets : [rtl, haps_dx7]
+    generate : [corescorecore_haps_dx7]
+    tools:
+      vivado: {part : xc7vx980tffg1926-2}
+    toplevel : corescore_haps_dx7
+
   zcu106:
     default_tool: vivado
     filesets : [rtl, zcu106]
@@ -299,6 +314,11 @@ generate:
     generator: corescorecore
     parameters:
       count : 5087
+
+  corescorecore_haps_dx7:
+    generator: corescorecore
+    parameters:
+      count : 3040
 
   corescorecore_zcu106:
     generator: corescorecore
