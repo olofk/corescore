@@ -1,7 +1,7 @@
 import curses
 import serial
 import sys
-import umsgpack
+import msgpack
 
 COREY = r'''
 /---------\
@@ -35,16 +35,19 @@ def main(stdscr):
 
     found_cores = []
     with serial.Serial(dev, 57600) as ser:
+        unpacker = msgpack.Unpacker(raw = False)
         while(True):
-            u = umsgpack.unpack(ser)
-            if type(u) == str:
-                (y,x) = win.getyx()
-                win.addstr(curses.LINES//2-3,6,u[0:-1])
-                win.refresh()
-                n = int(u[5:10])
-                if not (n in found_cores):
-                    found_cores.append(n)
-                    stdscr.addstr(10, 35, "Found {} cores".format(len(found_cores)))
-                    stdscr.refresh()
+            buf = ser.read()
+            unpacker.feed(buf)
+            for o in unpacker:
+                if type(o) == str:
+                    (y,x) = win.getyx()
+                    win.addstr(curses.LINES//2-3,6,o[0:-1])
+                    win.refresh()
+                    n = int(o[5:10])
+                    if not (n in found_cores):
+                        found_cores.append(n)
+                        stdscr.addstr(10, 35, "Found {} cores".format(len(found_cores)))
+                        stdscr.refresh()
 
 curses.wrapper(main)
