@@ -34,6 +34,13 @@ filesets:
       - rtl/cisco_hwic_3g_cdma_clock_gen.v : {file_type : verilogSource}
       - rtl/corescore_cisco_hwic_3g_cdma.v : {file_type : verilogSource}
 
+  intel_max10_devkit:
+    files:
+      - data/intel_max10_devkit.tcl : {file_type : tclSource}
+      - data/intel_max10_devkit.sdc : {file_type : SDC}
+      - rtl/intel_max10_devkit_clock_gen.v : {file_type : verilogSource}
+      - rtl/corescore_intel_max10_devkit.v : {file_type : verilogSource}
+
   sockit:
     files:
       - data/sockit.sdc : {file_type : SDC}
@@ -147,7 +154,7 @@ targets:
 
   cisco-hwic-3g-cdma:
     default_tool: quartus
-    description : Cisco HWIC-3G-CMDA with xx cores + SERV emitter
+    description : Cisco HWIC-3G-CMDA with 84 cores + SERV emitter
     filesets : [rtl, cisco-hwic-3g-cdma]
     generate : [corescorecore_cisco_hwic_3g_cdma]
     tools:
@@ -155,6 +162,18 @@ targets:
         family : Cyclone II
         device : EP2C35F484C8
     toplevel : corescore_cisco_hwic_3g_cdma
+
+  intel_max10_devkit:
+    default_tool: quartus
+    description : Intel Max10 10M50 Devkit with 133 cores  + SERV emitter
+    filesets : [rtl, intel_max10_devkit]
+    generate : [corescorecore_intel_max10_devkit]
+    tools:
+      quartus:
+        family : Intel Max10
+        device : 10M50DAF484C6GES
+    toplevel : corescore_intel_max10_devkit
+
 
   sockit: 
     default_tool : quartus
@@ -305,6 +324,11 @@ generate:
     generator: corescorecore
     parameters:
       count : 84
+
+  corescorecore_intel_max10_devkit:
+    generator: corescorecore
+    parameters:
+      count : 133
 
   corescorecore_sockit:
     generator: corescorecore
