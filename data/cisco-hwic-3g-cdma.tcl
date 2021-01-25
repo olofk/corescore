@@ -8,4 +8,5 @@ set_location_assignment PIN_G6   -to uart_rts
 set_location_assignment PIN_H6   -to uart_cts
 
 set_global_assignment -name RESERVE_ALL_UNUSED_PINS "AS INPUT TRI-STATED WITH WEAK PULL-UP"
+set_instance_assignment -name GLOBAL_SIGNAL "GLOBAL CLOCK" -to "cisco_hwic_3g_cdma_clock_gen:clock_gen|r[9]"
 
