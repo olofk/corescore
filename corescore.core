@@ -240,7 +240,7 @@ targets:
 
   ulx3s_85:
     default_tool: trellis
-    description : ULX3S 85k version
+    description : ULX3S 85k version with 135 cores + SERV emitter
     filesets : [rtl, ulx3s]
     generate : [corescorecore_ulx3s_85]
     tools:
@@ -363,7 +363,7 @@ generate:
   corescorecore_ulx3s_85:
     generator: corescorecore
     parameters:
-      count : 100
+      count : 135
 
   corescorecore_colorlight_5a75b:
     generator: corescorecore
