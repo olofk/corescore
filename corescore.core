@@ -41,6 +41,13 @@ filesets:
       - rtl/intel_max10_devkit_clock_gen.v : {file_type : verilogSource}
       - rtl/corescore_intel_max10_devkit.v : {file_type : verilogSource}
 
+  intel_cyc10lp_devkit:
+    files:
+      - data/intel_cyc10lp_devkit.tcl : {file_type : tclSource}
+      - data/intel_cyc10lp_devkit.sdc : {file_type : SDC}
+      - rtl/intel_cyc10lp_devkit_clock_gen.v : {file_type : verilogSource}
+      - rtl/corescore_intel_cyc10lp_devkit.v : {file_type : verilogSource}
+
   sockit:
     files:
       - data/sockit.sdc : {file_type : SDC}
@@ -173,6 +180,17 @@ targets:
         family : Intel Max10
         device : 10M50DAF484C6GES
     toplevel : corescore_intel_max10_devkit
+
+  intel_cyc10lp_devkit:
+    default_tool: quartus
+    description : Intel Cyclone 10LP FPGA Development Kit with 64 cores  + SERV emitter
+    filesets : [rtl, intel_cyc10lp_devkit]
+    generate : [corescorecore_intel_cyc10lp_devkit]
+    tools:
+      quartus:
+        family : Intel Cyclone 10 LP
+        device : 10CL025YU256I7G
+    toplevel : corescore_intel_cyc10lp_devkit
 
 
   sockit: 
@@ -329,6 +347,11 @@ generate:
     generator: corescorecore
     parameters:
       count : 133
+
+  corescorecore_intel_cyc10lp_devkit:
+    generator: corescorecore
+    parameters:
+      count : 64
 
   corescorecore_sockit:
     generator: corescorecore
