@@ -1,0 +1,13 @@
+=========================
+Libero build instructions
+=========================
+
+After "Generate FPGA Array Data" task, open "Configure Design Initialization Data and Memories" tool.
+
+Click the "Fabric RAMs" tab and select "Initialize all clients from SPI-Flash" in the dropdown named "Initialize all clients from".
+
+Click "Apply".
+
+Select "Design Initialization" tab and set the dropdown "SPI Clock divider value" to "6 (13.33)".
+
+Click Apply

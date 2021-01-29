@@ -1,0 +1,5 @@
+set_io -port_name {i_clk} -pin_name E25 -io_std LVCMOS18 -fixed true
+set_io -port_name {resetbtn} -pin_name K22 -io_std LVCMOS18 -fixed true
+set_io -port_name {q} -pin_name F22 -io_std LVCMOS18 -fixed true
+set_io -port_name {h} -pin_name B26 -io_std LVCMOS18 -fixed true
+set_io -port_name {o_uart_tx} -pin_name G17 -io_std LVCMOS18 -fixed true

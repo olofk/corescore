@@ -150,6 +150,14 @@ filesets:
       - rtl/corescore_fpc_iii_clock_gen.v : {file_type : verilogSource}
       - rtl/corescore_fpc_iii.v : {file_type : verilogSource}
 
+  polarfireeval:
+    files:
+      - rtl/corescore_polarfire_eval_clock_gen.v: { file_type: verilogSource }
+      - rtl/corescore_polarfire.v: { file_type: verilogSource }
+      - data/polarfire_eval.pdc: { file_type: PDC }
+      - data/libero-post-instructions.txt:
+          { file_type: user, copyto: post-instructions.txt }
+
 targets:
   alhambra_II:
     default_tool : icestorm
@@ -361,6 +369,27 @@ targets:
         nextpnr_options : [--package, CABGA381, --85k, --speed, 8]
     toplevel: corescore_fpc_iii
 
+  polarfireeval: &polarfireeval
+    default_tool: libero
+    description: Microsemi Polarfire Evaluation Kit
+    filesets: [rtl, polarfireeval]
+    hooks:
+      post_run: [libero_post]
+    generate: [polarfireeval]
+    tools:
+      libero: &liberoMPF300
+        family: PolarFire
+        die: MPF300TS
+        package: FCG1152
+    toplevel: corescore_polarfire
+
+  polarfireeval_es:
+    <<: *polarfireeval
+    tools:
+      libero:
+        <<: *liberoMPF300
+        die: MPF300TS_ES
+
 generate:
   corescorecore_alhambra_II:
     generator: corescorecore
@@ -476,6 +505,11 @@ generate:
       freq_out : 16
       module: true
 
+  polarfireeval:
+    generator: corescorecore
+    parameters:
+      count: 882
+
 generators:
   corescorecore:
     interpreter: python3
@@ -491,3 +525,6 @@ parameters:
     datatype : bool
     paramtype : plusarg
 
+scripts:
+  libero_post:
+    cmd: ["python3", "-c", "print(open('post-instructions.txt','r').read())"]
