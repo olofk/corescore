@@ -129,6 +129,13 @@ filesets:
       - data/vivado_waive.tcl : {file_type : tclSource}
       - data/haps_dx7.xdc : {file_type : xdc}
 
+  fpc_iii:
+    files:
+      - data/fpc_iii.lpf : {file_type : LPF}
+      - rtl/ecppll.v : {file_type : verilogSource}
+      - rtl/corescore_fpc_iii_clock_gen.v : {file_type : verilogSource}
+      - rtl/corescore_fpc_iii.v : {file_type : verilogSource}
+
 targets:
   alhambra_II:
     default_tool : icestorm
@@ -309,6 +316,16 @@ targets:
       vivado: {part : xczu7ev-ffvc1156-2-e}
     toplevel : corescore_zcu106
 
+  fpc_iii:
+    default_tool: trellis
+    description : FPC-III with 128 cores + SERV emitter
+    filesets : [rtl, fpc_iii]
+    generate : [corescorecore_fpc_iii]
+    tools:
+      trellis:
+        nextpnr_options : [--package, CABGA381, --85k, --speed, 8]
+    toplevel: corescore_fpc_iii
+
 generate:
   corescorecore_alhambra_II:
     generator: corescorecore
@@ -394,6 +411,11 @@ generate:
     generator: corescorecore
     parameters:
       count : 940
+
+  corescorecore_fpc_iii:
+    generator: corescorecore
+    parameters:
+      count : 128
 
   tinyfpga_bx_pll:
     generator: icepll
