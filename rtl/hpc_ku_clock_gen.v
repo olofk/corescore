@@ -1,5 +1,5 @@
 `default_nettype none
-module hpc_k7_clock_gen
+module hpc_ku_clock_gen
   (input wire  i_clk,
    output wire o_clk,
    output reg  o_rst);
