@@ -1,5 +1,5 @@
 `default_nettype none
-module corescore_hpc_k7
+module corescore_hpc_ku
 (
  input wire  i_clk,
  output wire o_uart_tx);
@@ -7,7 +7,7 @@ module corescore_hpc_k7
    wire      clk;
    wire      rst;
 
-   hpc_k7_clock_gen clock_gen
+   hpc_ku_clock_gen clock_gen
      (.i_clk (i_clk),
       .o_clk (clk),
       .o_rst (rst));
