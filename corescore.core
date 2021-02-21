@@ -94,6 +94,13 @@ filesets:
       - data/vivado_waive.tcl : {file_type : tclSource}
       - data/hpc_k7.xdc : {file_type : xdc}
 
+  hpc_ku:
+    files:
+      - rtl/hpc_ku_clock_gen.v : {file_type : verilogSource}
+      - rtl/corescore_hpc_ku.v : {file_type : verilogSource}
+      - data/vivado_waive.tcl : {file_type : tclSource}
+      - data/hpc_ku.xdc : {file_type : xdc}
+
   tb:
     files:
       - tb/corescore_tb.cpp : {file_type : cppSource}
@@ -267,12 +274,21 @@ targets:
 
   hpc_k7:
     default_tool: vivado
-    description: HPCV2 Kintex7 with 750 cores@128MHz + SERV emitter (460800bps UART)
+    description: HPCV2 Kintex7 k7420 with 1024 cores@128MHz + SERV emitter (460800bps UART)
     filesets : [rtl, hpc_k7]
     generate : [corescorecore_hpc_k7]
     tools:
       vivado: {part : xc7k420tffg901-2}
     toplevel : corescore_hpc_k7
+
+  hpc_ku:
+    default_tool: vivado
+    description: HPCV2 KintexUltraScale ku040 with 1024 cores@128MHz + SERV emitter (460800bps UART)
+    filesets : [rtl, hpc_ku]
+    generate : [corescorecore_hpc_ku]
+    tools:
+      vivado: {part : xcku040ffva1156-2}
+    toplevel : corescore_hpc_ku
 
   sim:
     default_tool : verilator
@@ -431,7 +447,12 @@ generate:
   corescorecore_hpc_k7:
     generator: corescorecore
     parameters:
-      count : 1000
+      count : 1024
+
+  corescorecore_hpc_ku:
+    generator: corescorecore
+    parameters:
+      count : 1024
 
   corescorecore_sim:
     generator: corescorecore
