@@ -1,91 +1,91 @@
 CAPI=2:
 
-name : ::corescore:0
+name: ::corescore:0
 
 filesets:
   rtl:
     files:
-      - sw/emitter.hex : {file_type : user, copyto : emitter.hex}
+      - sw/emitter.hex: { file_type: user, copyto: emitter.hex }
       - rtl/wb2axis.v
       - rtl/base.v
       - rtl/axis2wb.v
       - rtl/emitter_mux.v
       - rtl/emitter.v
-    file_type : verilogSource
-    depend : [servant, serving, verilog-axis]
+    file_type: verilogSource
+    depend: [servant, serving, verilog-axis]
 
   alhambra_II:
     files:
-      - rtl/corescore_alhambra_II.v : {file_type : verilogSource}
-      - data/alhambra_II.pcf : {file_type : PCF}
-    depend : ["fusesoc:utils:generators"]
+      - rtl/corescore_alhambra_II.v: { file_type: verilogSource }
+      - data/alhambra_II.pcf: { file_type: PCF }
+    depend: ["fusesoc:utils:generators"]
 
   cyc1000:
     files:
-      - data/cyc1000.tcl : {file_type : tclSource}
-      - data/cyc1000.sdc : {file_type : SDC}
-      - rtl/cyc1000_clock_gen.v : {file_type : verilogSource}
-      - rtl/corescore_cyc1000.v : {file_type : verilogSource}
+      - data/cyc1000.tcl: { file_type: tclSource }
+      - data/cyc1000.sdc: { file_type: SDC }
+      - rtl/cyc1000_clock_gen.v: { file_type: verilogSource }
+      - rtl/corescore_cyc1000.v: { file_type: verilogSource }
 
   cisco-hwic-3g-cdma:
     files:
-      - data/cisco-hwic-3g-cdma.tcl : {file_type : tclSource}
-      - data/cisco-hwic-3g-cdma.sdc : {file_type : SDC}
-      - rtl/cisco_hwic_3g_cdma_clock_gen.v : {file_type : verilogSource}
-      - rtl/corescore_cisco_hwic_3g_cdma.v : {file_type : verilogSource}
+      - data/cisco-hwic-3g-cdma.tcl: { file_type: tclSource }
+      - data/cisco-hwic-3g-cdma.sdc: { file_type: SDC }
+      - rtl/cisco_hwic_3g_cdma_clock_gen.v: { file_type: verilogSource }
+      - rtl/corescore_cisco_hwic_3g_cdma.v: { file_type: verilogSource }
 
   intel_max10_devkit:
     files:
-      - data/intel_max10_devkit.tcl : {file_type : tclSource}
-      - data/intel_max10_devkit.sdc : {file_type : SDC}
-      - rtl/intel_max10_devkit_clock_gen.v : {file_type : verilogSource}
-      - rtl/corescore_intel_max10_devkit.v : {file_type : verilogSource}
+      - data/intel_max10_devkit.tcl: { file_type: tclSource }
+      - data/intel_max10_devkit.sdc: { file_type: SDC }
+      - rtl/intel_max10_devkit_clock_gen.v: { file_type: verilogSource }
+      - rtl/corescore_intel_max10_devkit.v: { file_type: verilogSource }
 
   intel_cyc10lp_devkit:
     files:
-      - data/intel_cyc10lp_devkit.tcl : {file_type : tclSource}
-      - data/intel_cyc10lp_devkit.sdc : {file_type : SDC}
-      - rtl/intel_cyc10lp_devkit_clock_gen.v : {file_type : verilogSource}
-      - rtl/corescore_intel_cyc10lp_devkit.v : {file_type : verilogSource}
+      - data/intel_cyc10lp_devkit.tcl: { file_type: tclSource }
+      - data/intel_cyc10lp_devkit.sdc: { file_type: SDC }
+      - rtl/intel_cyc10lp_devkit_clock_gen.v: { file_type: verilogSource }
+      - rtl/corescore_intel_cyc10lp_devkit.v: { file_type: verilogSource }
 
   sockit:
     files:
-      - data/sockit.sdc : {file_type : SDC}
-      - data/sockit.tcl : {file_type : tclSource}
-      - rtl/de0_nano_clock_gen.v : {file_type : verilogSource}
-      - rtl/corescore_sockit.v : {file_type : verilogSource}
+      - data/sockit.sdc: { file_type: SDC }
+      - data/sockit.tcl: { file_type: tclSource }
+      - rtl/de0_nano_clock_gen.v: { file_type: verilogSource }
+      - rtl/corescore_sockit.v: { file_type: verilogSource }
 
   deca:
     files:
-      - data/deca.sdc : {file_type : SDC}
-      - data/deca.tcl : {file_type : tclSource}
-      - rtl/de0_nano_clock_gen.v : {file_type : verilogSource}
-      - rtl/corescore_deca.v : {file_type : verilogSource}
-      
+      - data/deca.sdc: { file_type: SDC }
+      - data/deca.tcl: { file_type: tclSource }
+      - rtl/de0_nano_clock_gen.v: { file_type: verilogSource }
+      - rtl/corescore_deca.v: { file_type: verilogSource }
+
   de0_nano:
     files:
-      - data/de0_nano.sdc : {file_type : SDC}
-      - data/de0_nano.tcl : {file_type : tclSource}
-      - rtl/de0_nano_clock_gen.v : {file_type : verilogSource}
-      - rtl/corescore_de0_nano.v : {file_type : verilogSource}
+      - data/de0_nano.sdc: { file_type: SDC }
+      - data/de0_nano.tcl: { file_type: tclSource }
+      - rtl/de0_nano_clock_gen.v: { file_type: verilogSource }
+      - rtl/corescore_de0_nano.v: { file_type: verilogSource }
 
   de5_net:
     files:
-      - data/de5_net.sdc : {file_type : SDC}
-      - data/de5_net.tcl : {file_type : tclSource}
-      - rtl/de5_net_clock_gen.v : {file_type : verilogSource}
-      - rtl/corescore_de5_net.v : {file_type : verilogSource}
+      - data/de5_net.sdc: { file_type: SDC }
+      - data/de5_net.tcl: { file_type: tclSource }
+      - rtl/de5_net_clock_gen.v: { file_type: verilogSource }
+      - rtl/corescore_de5_net.v: { file_type: verilogSource }
 
   generic:
     files:
-      - rtl/corescore_generic.v : {file_type : verilogSource}
+      - rtl/corescore_generic.v: { file_type: verilogSource }
 
   nexys_a7:
     files:
-      - rtl/nexys_a7_clock_gen.v : {file_type : verilogSource}
-      - rtl/corescore_nexys_a7.v : {file_type : verilogSource}
-      - data/vivado_waive.tcl : {file_type : tclSource}
-      - data/nexys_a7.xdc : {file_type : xdc}
+      - rtl/nexys_a7_clock_gen.v: { file_type: verilogSource }
+      - rtl/corescore_nexys_a7.v: { file_type: verilogSource }
+      - data/vivado_waive.tcl: { file_type: tclSource }
+      - data/nexys_a7.xdc: { file_type: xdc }
 
   hpc_k7:
     files:
@@ -103,66 +103,66 @@ filesets:
 
   tb:
     files:
-      - tb/corescore_tb.cpp : {file_type : cppSource}
+      - tb/corescore_tb.cpp: { file_type: cppSource }
 
   tinyfpga_bx:
     files:
-      - data/tinyfpga_bx.pcf : {file_type : PCF}
-      - data/tinyfpga_bx.py : {file_type : user, copyto : constraints.py}
-      - rtl/corescore_tinyfpga_bx.v : {file_type : verilogSource}
-    depend : [usbserial, "fusesoc:utils:generators"]
+      - data/tinyfpga_bx.pcf: { file_type: PCF }
+      - data/tinyfpga_bx.py: { file_type: user, copyto: constraints.py }
+      - rtl/corescore_tinyfpga_bx.v: { file_type: verilogSource }
+    depend: [usbserial, "fusesoc:utils:generators"]
 
   ulx3s:
     files:
-      - data/ulx3s.lpf : {file_type : LPF}
-      - rtl/ecppll.v : {file_type : verilogSource}
-      - rtl/corescore_ulx3s_clock_gen.v : {file_type : verilogSource}
-      - rtl/corescore_ulx3s.v : {file_type : verilogSource}
+      - data/ulx3s.lpf: { file_type: LPF }
+      - rtl/ecppll.v: { file_type: verilogSource }
+      - rtl/corescore_ulx3s_clock_gen.v: { file_type: verilogSource }
+      - rtl/corescore_ulx3s.v: { file_type: verilogSource }
 
   colorlight:
     files:
-      - data/colorlight_5a75b.lpf : {file_type : LPF}
-      - rtl/ecppll.v : {file_type : verilogSource}
-      - rtl/corescore_colorlight_clock_gen.v : {file_type : verilogSource}
-      - rtl/corescore_colorlight.v : {file_type : verilogSource}
+      - data/colorlight_5a75b.lpf: { file_type: LPF }
+      - rtl/ecppll.v: { file_type: verilogSource }
+      - rtl/corescore_colorlight_clock_gen.v: { file_type: verilogSource }
+      - rtl/corescore_colorlight.v: { file_type: verilogSource }
 
   upduino2:
     files:
-      - rtl/corescore_upduino2.v : {file_type : verilogSource}
-      - data/upduino2.pcf : {file_type : PCF}
+      - rtl/corescore_upduino2.v: { file_type: verilogSource }
+      - data/upduino2.pcf: { file_type: PCF }
 
   icesugar:
     files:
-      - rtl/corescore_icesugar.v : {file_type : verilogSource}
-      - data/icesugar.pcf : {file_type : PCF}
+      - rtl/corescore_icesugar.v: { file_type: verilogSource }
+      - data/icesugar.pcf: { file_type: PCF }
 
   zcu106:
     files:
-      - rtl/corescore_zcu106_clock_gen.v : {file_type : verilogSource}
-      - rtl/corescore_zcu106.v : {file_type : verilogSource}
-      - data/vivado_waive.tcl : {file_type : tclSource}
-      - data/zcu106.xdc : {file_type : xdc}
+      - rtl/corescore_zcu106_clock_gen.v: { file_type: verilogSource }
+      - rtl/corescore_zcu106.v: { file_type: verilogSource }
+      - data/vivado_waive.tcl: { file_type: tclSource }
+      - data/zcu106.xdc: { file_type: xdc }
 
   vcu118:
     files:
-      - rtl/corescore_vcu118_clock_gen.v : {file_type : verilogSource}
-      - rtl/corescore_vcu118.v : {file_type : verilogSource}
-      - data/vivado_waive.tcl : {file_type : tclSource}
-      - data/vcu118.xdc : {file_type : xdc}
+      - rtl/corescore_vcu118_clock_gen.v: { file_type: verilogSource }
+      - rtl/corescore_vcu118.v: { file_type: verilogSource }
+      - data/vivado_waive.tcl: { file_type: tclSource }
+      - data/vcu118.xdc: { file_type: xdc }
 
   haps_dx7:
     files:
-      - rtl/corescore_haps_dx7_clock_gen.v : {file_type : verilogSource}
-      - rtl/corescore_haps_dx7.v : {file_type : verilogSource}
-      - data/vivado_waive.tcl : {file_type : tclSource}
-      - data/haps_dx7.xdc : {file_type : xdc}
+      - rtl/corescore_haps_dx7_clock_gen.v: { file_type: verilogSource }
+      - rtl/corescore_haps_dx7.v: { file_type: verilogSource }
+      - data/vivado_waive.tcl: { file_type: tclSource }
+      - data/haps_dx7.xdc: { file_type: xdc }
 
   fpc_iii:
     files:
-      - data/fpc_iii.lpf : {file_type : LPF}
-      - rtl/ecppll.v : {file_type : verilogSource}
-      - rtl/corescore_fpc_iii_clock_gen.v : {file_type : verilogSource}
-      - rtl/corescore_fpc_iii.v : {file_type : verilogSource}
+      - data/fpc_iii.lpf: { file_type: LPF }
+      - rtl/ecppll.v: { file_type: verilogSource }
+      - rtl/corescore_fpc_iii_clock_gen.v: { file_type: verilogSource }
+      - rtl/corescore_fpc_iii.v: { file_type: verilogSource }
 
   polarfireeval:
     files:
@@ -174,111 +174,110 @@ filesets:
 
 targets:
   alhambra_II:
-    default_tool : icestorm
+    default_tool: icestorm
     description: Alhambra II iCE40-HX4K based open-source hardware board
-    filesets : [rtl, alhambra_II]
+    filesets: [rtl, alhambra_II]
     generate: [corescorecore_alhambra_II, alhambra_II_pll]
     tools:
       icestorm:
         nextpnr_options: [--hx8k, --package, "tq144:4k", --freq, 16]
         pnr: next
-    toplevel : corescore_alhambra_II
+    toplevel: corescore_alhambra_II
 
   cyc1000:
     default_tool: quartus
-    description : TrenzElectronics cyc1000 with 60 cores + SERV emitter
-    filesets : [rtl, cyc1000]
-    generate : [corescorecore_cyc1000]
+    description: TrenzElectronics cyc1000 with 60 cores + SERV emitter
+    filesets: [rtl, cyc1000]
+    generate: [corescorecore_cyc1000]
     tools:
       quartus:
-        family : Cyclone 10 LP
-        device : 10CL025YU256C8G
-    toplevel : corescore_cyc1000
+        family: Cyclone 10 LP
+        device: 10CL025YU256C8G
+    toplevel: corescore_cyc1000
 
   cisco-hwic-3g-cdma:
     default_tool: quartus
-    description : Cisco HWIC-3G-CMDA with 84 cores + SERV emitter
-    filesets : [rtl, cisco-hwic-3g-cdma]
-    generate : [corescorecore_cisco_hwic_3g_cdma]
+    description: Cisco HWIC-3G-CMDA with 84 cores + SERV emitter
+    filesets: [rtl, cisco-hwic-3g-cdma]
+    generate: [corescorecore_cisco_hwic_3g_cdma]
     tools:
       quartus:
-        family : Cyclone II
-        device : EP2C35F484C8
-    toplevel : corescore_cisco_hwic_3g_cdma
+        family: Cyclone II
+        device: EP2C35F484C8
+    toplevel: corescore_cisco_hwic_3g_cdma
 
   intel_max10_devkit:
     default_tool: quartus
-    description : Intel Max10 10M50 Devkit with 133 cores  + SERV emitter
-    filesets : [rtl, intel_max10_devkit]
-    generate : [corescorecore_intel_max10_devkit]
+    description: Intel Max10 10M50 Devkit with 133 cores  + SERV emitter
+    filesets: [rtl, intel_max10_devkit]
+    generate: [corescorecore_intel_max10_devkit]
     tools:
       quartus:
-        family : Intel Max10
-        device : 10M50DAF484C6GES
-    toplevel : corescore_intel_max10_devkit
+        family: Intel Max10
+        device: 10M50DAF484C6GES
+    toplevel: corescore_intel_max10_devkit
 
   intel_cyc10lp_devkit:
     default_tool: quartus
-    description : Intel Cyclone 10LP FPGA Development Kit with 64 cores  + SERV emitter
-    filesets : [rtl, intel_cyc10lp_devkit]
-    generate : [corescorecore_intel_cyc10lp_devkit]
+    description: Intel Cyclone 10LP FPGA Development Kit with 64 cores  + SERV emitter
+    filesets: [rtl, intel_cyc10lp_devkit]
+    generate: [corescorecore_intel_cyc10lp_devkit]
     tools:
       quartus:
-        family : Intel Cyclone 10 LP
-        device : 10CL025YU256I7G
-    toplevel : corescore_intel_cyc10lp_devkit
+        family: Intel Cyclone 10 LP
+        device: 10CL025YU256I7G
+    toplevel: corescore_intel_cyc10lp_devkit
 
-
-  sockit: 
-    default_tool : quartus
-    description : Arrow Sockit Development kit by Terasic with 284 cores  + SERV emitter
-    filesets : [rtl, sockit]
-    generate : [corescorecore_sockit]
+  sockit:
+    default_tool: quartus
+    description: Arrow Sockit Development kit by Terasic with 284 cores  + SERV emitter
+    filesets: [rtl, sockit]
+    generate: [corescorecore_sockit]
     tools:
       quartus:
-        family : Cyclone V
-        device : 5CSXFC6D6F31C6
+        family: Cyclone V
+        device: 5CSXFC6D6F31C6
     toplevel: corescore_sockit
 
-  deca: 
-    default_tool : quartus
-    description : DECA development kit by Arrow / Terasic with 139 cores  + SERV emitter
-    filesets : [rtl, deca]
-    generate : [corescorecore_deca]
+  deca:
+    default_tool: quartus
+    description: DECA development kit by Arrow / Terasic with 139 cores  + SERV emitter
+    filesets: [rtl, deca]
+    generate: [corescorecore_deca]
     tools:
       quartus:
-        family : MAX 10
-        device : 10M50DAF484C6GES
+        family: MAX 10
+        device: 10M50DAF484C6GES
     toplevel: corescore_deca
-    
+
   de0_nano:
-    default_tool : quartus
-    filesets : [rtl, de0_nano]
-    generate : [corescorecore_de0_nano]
+    default_tool: quartus
+    filesets: [rtl, de0_nano]
+    generate: [corescorecore_de0_nano]
     tools:
       quartus:
-        family : Cyclone IV E
-        device : EP4CE22F17C6
+        family: Cyclone IV E
+        device: EP4CE22F17C6
     toplevel: corescore_de0_nano
 
   de5_net:
-    default_tool : quartus
-    filesets : [rtl, de5_net]
-    generate : [corescorecore_de5_net]
+    default_tool: quartus
+    filesets: [rtl, de5_net]
+    generate: [corescorecore_de5_net]
     tools:
       quartus:
-        family : Stratix V
-        device : 5SGXEA7N2F45C2
+        family: Stratix V
+        device: 5SGXEA7N2F45C2
     toplevel: corescore_de5_net
 
   nexys_a7:
     default_tool: vivado
     description: Digilent Nexys A7 with 268 cores + SERV emitter
-    filesets : [rtl, nexys_a7]
-    generate : [corescorecore_nexys_a7]
+    filesets: [rtl, nexys_a7]
+    generate: [corescorecore_nexys_a7]
     tools:
-      vivado: {part : xc7a100tcsg324-1}
-    toplevel : corescore_nexys_a7
+      vivado: { part: xc7a100tcsg324-1 }
+    toplevel: corescore_nexys_a7
 
   hpc_k7:
     default_tool: vivado
@@ -299,15 +298,15 @@ targets:
     toplevel : corescore_hpc_ku
 
   sim:
-    default_tool : verilator
-    description : Verilator testbench with 10 cores + SERV emitter
-    filesets : [rtl, generic, tb]
-    generate : [corescorecore_sim]
-    parameters : [uart_baudrate=57600, vcd]
+    default_tool: verilator
+    description: Verilator testbench with 10 cores + SERV emitter
+    filesets: [rtl, generic, tb]
+    generate: [corescorecore_sim]
+    parameters: [uart_baudrate=57600, vcd]
     tools:
       verilator:
-        verilator_options : [--trace, -Wno-timescalemod]
-    toplevel : corescore_generic
+        verilator_options: [--trace, -Wno-timescalemod]
+    toplevel: corescore_generic
 
   tinyfpga_bx:
     default_tool: icestorm
@@ -322,83 +321,83 @@ targets:
 
   ulx3s_85:
     default_tool: trellis
-    description : ULX3S 85k version with 135 cores + SERV emitter
-    filesets : [rtl, ulx3s]
-    generate : [corescorecore_ulx3s_85]
+    description: ULX3S 85k version with 135 cores + SERV emitter
+    filesets: [rtl, ulx3s]
+    generate: [corescorecore_ulx3s_85]
     tools:
       diamond:
-        part : LFE5U-85F-6BG381C
+        part: LFE5U-85F-6BG381C
       trellis:
-        nextpnr_options : [--package, CABGA381, --85k]
+        nextpnr_options: [--package, CABGA381, --85k]
     toplevel: corescore_ulx3s
 
   colorlight_5a75b:
     default_tool: trellis
-    description : colorlight 5a75b version
-    filesets : [rtl, colorlight]
-    generate : [corescorecore_colorlight_5a75b]
+    description: colorlight 5a75b version
+    filesets: [rtl, colorlight]
+    generate: [corescorecore_colorlight_5a75b]
     tools:
       diamond:
-        part : LFE5U-25F-6BG256C
+        part: LFE5U-25F-6BG256C
       trellis:
-        nextpnr_options : [--package, CABGA256, --25k]
+        nextpnr_options: [--package, CABGA256, --25k]
     toplevel: corescore_colorlight
 
   upduino2:
-    default_tool : icestorm
-    filesets : [rtl, upduino2]
+    default_tool: icestorm
+    filesets: [rtl, upduino2]
     generate: [corescorecore_upduino2]
     tools:
       icestorm:
         nextpnr_options: [--package, sg48, --up5k, --freq, 16]
         pnr: next
         yosys_synth_options: [-dffe_min_ce_use, 8]
-    toplevel : corescore_upduino2
+    toplevel: corescore_upduino2
 
   icesugar:
-    default_tool : icestorm
-    description : iCE40UP5K Development Board by MuseLab
-    filesets : [rtl, icesugar]
+    default_tool: icestorm
+    description: iCE40UP5K Development Board by MuseLab
+    filesets: [rtl, icesugar]
     generate: [corescorecore_icesugar]
     tools:
       icestorm:
         nextpnr_options: [--package, sg48, --up5k, --freq, 16]
         pnr: next
         yosys_synth_options: [-dffe_min_ce_use, 8]
-    toplevel : corescore_icesugar
+    toplevel: corescore_icesugar
 
   vcu118:
     default_tool: vivado
-    filesets : [rtl, vcu118]
-    generate : [corescorecore_vcu118]
+    filesets: [rtl, vcu118]
+    generate: [corescorecore_vcu118]
     tools:
-      vivado: {part : xcvu9p-flga2104-2l-e}
-    toplevel : corescore_vcu118
+      vivado: { part: xcvu9p-flga2104-2l-e }
+    toplevel: corescore_vcu118
 
   haps_dx7:
     default_tool: vivado
-    filesets : [rtl, haps_dx7]
-    generate : [corescorecore_haps_dx7]
+    filesets: [rtl, haps_dx7]
+    generate: [corescorecore_haps_dx7]
     tools:
-      vivado: {part : xc7vx980tffg1926-2}
-    toplevel : corescore_haps_dx7
+      vivado: { part: xc7vx980tffg1926-2 }
+    toplevel: corescore_haps_dx7
 
   zcu106:
     default_tool: vivado
-    filesets : [rtl, zcu106]
-    generate : [corescorecore_zcu106]
+    filesets: [rtl, zcu106]
+    generate: [corescorecore_zcu106]
     tools:
-      vivado: {part : xczu7ev-ffvc1156-2-e}
-    toplevel : corescore_zcu106
+      vivado: { part: xczu7ev-ffvc1156-2-e }
+    toplevel: corescore_zcu106
 
   fpc_iii:
     default_tool: trellis
-    description : FPC-III with 128 cores + SERV emitter
-    filesets : [rtl, fpc_iii]
-    generate : [corescorecore_fpc_iii]
+    description: FPC-III with 128 cores + SERV emitter
+    filesets: [rtl, fpc_iii]
+    generate: [corescorecore_fpc_iii]
     tools:
       trellis:
-        nextpnr_options : [--package, CABGA381, --85k, --speed, 8]
+        nextpnr_options: [--package, CABGA381, --85k, --speed, 8]
     toplevel: corescore_fpc_iii
 
   polarfireeval: &polarfireeval
@@ -407,7 +406,7 @@ targets:
     filesets: [rtl, polarfireeval]
     hooks:
       post_run: [libero_post]
-    generate: [corescore_polarfireeval]
+    generate: [corescorecore_polarfireeval]
     tools:
       libero: &liberoMPF300
         family: PolarFire
@@ -426,52 +425,52 @@ generate:
   corescorecore_alhambra_II:
     generator: corescorecore
     parameters:
-      count : 12
+      count: 12
 
   corescorecore_cyc1000:
     generator: corescorecore
     parameters:
-      count : 60
+      count: 60
 
   corescorecore_cisco_hwic_3g_cdma:
     generator: corescorecore
     parameters:
-      count : 84
+      count: 84
 
   corescorecore_intel_max10_devkit:
     generator: corescorecore
     parameters:
-      count : 133
+      count: 133
 
   corescorecore_intel_cyc10lp_devkit:
     generator: corescorecore
     parameters:
-      count : 64
+      count: 64
 
   corescorecore_sockit:
     generator: corescorecore
     parameters:
-      count : 284
+      count: 284
 
   corescorecore_deca:
     generator: corescorecore
     parameters:
-      count : 139
+      count: 139
 
   corescorecore_de0_nano:
     generator: corescorecore
     parameters:
-      count : 61
+      count: 61
 
   corescorecore_de5_net:
     generator: corescorecore
     parameters:
-      count : 1568
+      count: 1568
 
   corescorecore_nexys_a7:
     generator: corescorecore
     parameters:
-      count : 268
+      count: 268
 
   corescorecore_hpc_k7:
     generator: corescorecore
@@ -486,68 +485,68 @@ generate:
   corescorecore_sim:
     generator: corescorecore
     parameters:
-      count : 10
+      count: 10
 
   corescorecore_tinyfpga_bx:
     generator: corescorecore
     parameters:
-      count : 11
+      count: 11
 
   corescorecore_ulx3s_85:
     generator: corescorecore
     parameters:
-      count : 135
+      count: 135
 
   corescorecore_colorlight_5a75b:
     generator: corescorecore
     parameters:
-      count : 55
+      count: 55
 
   corescorecore_upduino2:
     generator: corescorecore
     parameters:
-      count : 10
+      count: 10
 
   corescorecore_icesugar:
     generator: corescorecore
     parameters:
-      count : 10
+      count: 10
 
   corescorecore_vcu118:
     generator: corescorecore
     parameters:
-      count : 5087
+      count: 5087
 
   corescorecore_haps_dx7:
     generator: corescorecore
     parameters:
-      count : 3040
+      count: 3040
 
   corescorecore_zcu106:
     generator: corescorecore
     parameters:
-      count : 940
+      count: 940
 
   corescorecore_fpc_iii:
     generator: corescorecore
     parameters:
-      count : 128
+      count: 128
 
   tinyfpga_bx_pll:
     generator: icepll
     parameters:
-      freq_in  : 16
-      freq_out : 48
+      freq_in: 16
+      freq_out: 48
       module: true
 
   alhambra_II_pll:
     generator: icepll
     parameters:
-      freq_in  : 12
-      freq_out : 16
+      freq_in: 12
+      freq_out: 16
       module: true
 
-  corescore_polarfireeval:
+  corescorecore_polarfireeval:
     generator: corescorecore
     parameters:
       count: 882
@@ -559,13 +558,13 @@ generators:
 
 parameters:
   uart_baudrate:
-    datatype : int
-    description : Treat q output as an UART with the specified baudrate (0 or omitted parameter disables UART decoding)
-    paramtype : plusarg
+    datatype: int
+    description: Treat q output as an UART with the specified baudrate (0 or omitted parameter disables UART decoding)
+    paramtype: plusarg
 
   vcd:
-    datatype : bool
-    paramtype : plusarg
+    datatype: bool
+    paramtype: plusarg
 
 scripts:
   libero_post:

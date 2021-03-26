@@ -1,7 +1,7 @@
 class Signal(object):
     def __init__(self, name, width=0, low=0, asc=False, vec=0):
         self.name = name
-        self.width=width
+        self.width = width
         self.low = low
         self.asc = asc
 
@@ -15,19 +15,23 @@ class Signal(object):
                 return '['+str(l)+':'+str(r)+']'
         return ''
 
+
 class Wire(Signal):
     def write(self, width):
         return 'wire{range} {name};\n'.format(range=self.range().rjust(width), name=self.name)
 
+
 class Parameter:
     def __init__(self, name, value):
-        self.name  = name
+        self.name = name
         self.value = value
+
 
 class Port:
     def __init__(self, name, value):
         self.name = name
         self.value = value
+
 
 class ModulePort(Signal):
     def __init__(self, name, dir, width=0, low=0, asc=False):
@@ -36,6 +40,7 @@ class ModulePort(Signal):
 
     def write(self, range_width=0):
         return '{dir} wire {range} {name}'.format(dir=self.dir.ljust(6), range=self.range().rjust(range_width), name=self.name)
+
 
 class Instance:
     def __init__(self, module, name, parameters, ports):
@@ -49,20 +54,24 @@ class Instance:
         if self.parameters:
             max_len = max([len(p.name) for p in self.parameters])
             s += '\n  #('
-            s += ',\n    '.join(['.' + p.name.ljust(max_len) +' (' + str(p.value) + ')' for p in self.parameters])
+            s += ',\n    '.join(['.' + p.name.ljust(max_len) +
+                                 ' (' + str(p.value) + ')' for p in self.parameters])
             s += ')\n'
         s += ' ' + self.name
 
         if self.ports:
             s += '\n   ('
             max_len = max([len(p.name) for p in self.ports])
-            s += ',\n    '.join(['.' + p.name.ljust(max_len) +' (' + str(p.value) + ')' for p in self.ports])
+            s += ',\n    '.join(['.' + p.name.ljust(max_len) +
+                                 ' (' + str(p.value) + ')' for p in self.ports])
             s += ')'
         s += ';\n'
         return s
 
+
 class VerilogWriter:
     raw = ""
+
     def __init__(self, name):
         self.name = name
         self.instances = []
@@ -94,7 +103,7 @@ class VerilogWriter:
             max_len = max([len(w.range()) for w in self.wires])
             for w in self.wires:
                 s += w.write(max_len + 1)
-            s +='\n'
+            s += '\n'
         s += self.raw
         for i in self.instances:
             s += i.write()
@@ -104,5 +113,5 @@ class VerilogWriter:
         if file is None:
             return s
         else:
-            f = open(file,'w')
+            f = open(file, 'w')
             f.write(s)
