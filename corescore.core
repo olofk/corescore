@@ -505,7 +505,7 @@ generate:
       freq_out : 16
       module: true
 
-  polarfireeval:
+  corescore_polarfireeval:
     generator: corescorecore
     parameters:
       count: 882
