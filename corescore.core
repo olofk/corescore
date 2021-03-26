@@ -375,7 +375,7 @@ targets:
     filesets: [rtl, polarfireeval]
     hooks:
       post_run: [libero_post]
-    generate: [polarfireeval]
+    generate: [corescore_polarfireeval]
     tools:
       libero: &liberoMPF300
         family: PolarFire
@@ -505,7 +505,7 @@ generate:
       freq_out : 16
       module: true
 
-  polarfireeval:
+  corescore_polarfireeval:
     generator: corescorecore
     parameters:
       count: 882
