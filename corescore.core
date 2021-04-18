@@ -54,6 +54,13 @@ filesets:
       - data/sockit.tcl: { file_type: tclSource }
       - rtl/de0_nano_clock_gen.v: { file_type: verilogSource }
       - rtl/corescore_sockit.v: { file_type: verilogSource }
+      
+  storeypeak:
+    files:
+      - data/storeypeak.tcl: { file_type: tclSource }
+      - data/storeypeak.sdc: { file_type: SDC }
+      - rtl/storeypeak_clock_gen.v: { file_type: verilogSource }
+      - rtl/corescore_storeypeak.v: { file_type: verilogSource }
 
   deca:
     files:
@@ -238,6 +245,17 @@ targets:
         family: Cyclone V
         device: 5CSXFC6D6F31C6
     toplevel: corescore_sockit
+    
+  storeypeak:
+    default_tool: quartus
+    description: Microsoft Storey Peak card
+    filesets: [rtl, storeypeak]
+    generate: [corescorecore_storeypeak]
+    tools:
+      quartus:
+        family: Stratix V
+        device: 5SGSMD5K1F40C2
+    toplevel: corescore_storeypeak
 
   deca:
     default_tool: quartus
@@ -451,6 +469,11 @@ generate:
     generator: corescorecore
     parameters:
       count: 284
+
+  corescorecore_storeypeak:
+    generator: corescorecore
+    parameters:
+      count: 1152
 
   corescorecore_deca:
     generator: corescorecore
