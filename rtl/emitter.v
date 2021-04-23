@@ -118,6 +118,7 @@ module emitter
    ram
      (// Wishbone interface
       .i_wb_clk (i_clk),
+      .i_wb_rst (i_rst),
       .i_wb_adr (wb_mem_adr[$clog2(memsize)-1:2]),
       .i_wb_cyc (wb_mem_cyc),
       .i_wb_we  (wb_mem_we) ,
