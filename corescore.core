@@ -76,6 +76,13 @@ filesets:
       - rtl/de0_nano_clock_gen.v: { file_type: verilogSource }
       - rtl/corescore_de0_nano.v: { file_type: verilogSource }
 
+  de10_nano:
+    files:
+      - data/de10_nano.sdc: { file_type: SDC }
+      - data/de10_nano.tcl: { file_type: tclSource }
+      - rtl/de0_nano_clock_gen.v: { file_type: verilogSource }
+      - rtl/corescore_de10_nano.v: { file_type: verilogSource }
+
   de5_net:
     files:
       - data/de5_net.sdc: { file_type: SDC }
@@ -277,6 +284,18 @@ targets:
         family: Cyclone IV E
         device: EP4CE22F17C6
     toplevel: corescore_de0_nano
+
+  de10_nano:
+    default_tool: quartus
+    description : Terasic DE10 Nano Kit
+    filesets: [rtl, de10_nano]
+    generate: [corescorecore_de10_nano]
+    tools:
+      quartus:
+        family: Cyclone V
+        device: 5CSEBA6U23I7
+        board_device_index : 2
+    toplevel: corescore_de10_nano
 
   de5_net:
     default_tool: quartus
@@ -484,6 +503,11 @@ generate:
     generator: corescorecore
     parameters:
       count: 61
+
+  corescorecore_de10_nano:
+    generator: corescorecore
+    parameters:
+      count: 271
 
   corescorecore_de5_net:
     generator: corescorecore
