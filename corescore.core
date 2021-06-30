@@ -186,6 +186,12 @@ filesets:
       - data/libero-post-instructions.txt:
           { file_type: user, copyto: post-instructions.txt }
 
+  go_board:
+    files:
+      - rtl/corescore_go_board.v: { file_type: verilogSource }
+      - rtl/corescore_emitter_uart.v: { file_type: verilogSource }
+      - data/go_board.pcf: { file_type: PCF }
+
 targets:
   alhambra_II:
     default_tool: icestorm
@@ -458,6 +464,18 @@ targets:
         <<: *liberoMPF300
         die: MPF300TS_ES
 
+  go_board:
+    default_tool: icestorm
+    description: Nandland Go Board + Verilog emitter
+    filesets: [rtl, go_board]
+    generate: [corescorecore_go_board]
+    tools:
+      icestorm:
+        nextpnr_options: [--hx1k, --package, vq100, --freq, 25]
+        pnr: next
+        yosys_synth_options: [-dffe_min_ce_use, 8]
+    toplevel: corescore_go_board
+
 generate:
   corescorecore_alhambra_II:
     generator: corescorecore
@@ -558,6 +576,11 @@ generate:
     generator: corescorecore
     parameters:
       count: 10
+
+  corescorecore_go_board:
+    generator: corescorecore
+    parameters:
+      count: 2
 
   corescorecore_vcu118:
     generator: corescorecore
