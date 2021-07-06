@@ -27,6 +27,13 @@ filesets:
       - rtl/cyc1000_clock_gen.v: { file_type: verilogSource }
       - rtl/corescore_cyc1000.v: { file_type: verilogSource }
 
+  ep2c5t144_devboard:
+    files:
+      - data/ep2c5t144_devboard.tcl : {file_type : tclSource}
+      - data/ep2c5t144_devboard.sdc : {file_type : SDC}
+      - rtl/ep2c5t144_devboard_clock_gen.v : {file_type : verilogSource}
+      - rtl/corescore_ep2c5t144_devboard.v : {file_type : verilogSource}
+
   cisco-hwic-3g-cdma:
     files:
       - data/cisco-hwic-3g-cdma.tcl: { file_type: tclSource }
@@ -227,6 +234,17 @@ targets:
         family: Cyclone 10 LP
         device: 10CL025YU256C8G
     toplevel: corescore_cyc1000
+
+  ep2c5t144_devboard:
+    default_tool: quartus
+    description : EP2C5T144 development board with xx cores + SERV emitter
+    filesets : [rtl, ep2c5t144_devboard]
+    generate : [corescorecore_ep2c5t144_devboard]
+    tools:
+      quartus:
+        family : Cyclone II
+        device : EP2C5T144C6
+    toplevel : corescore_ep2c5t144_devboard
 
   cisco-hwic-3g-cdma:
     default_tool: quartus
@@ -517,6 +535,11 @@ generate:
     generator: corescorecore
     parameters:
       count: 60
+
+  corescorecore_ep2c5t144_devboard:
+    generator: corescorecore
+    parameters:
+      count : 10
 
   corescorecore_cisco_hwic_3g_cdma:
     generator: corescorecore
