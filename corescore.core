@@ -224,7 +224,7 @@ targets:
 
   ep2c5t144_devboard:
     default_tool: quartus
-    description : EP2C5T144 development board with xx cores + SERV emitter
+    description : EP2C5T144 development board with 11 cores + SERV emitter
     filesets : [rtl, ep2c5t144_devboard]
     generate : [corescorecore_ep2c5t144_devboard]
     tools:
