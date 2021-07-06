@@ -1,9 +1,9 @@
 `default_nettype none
-module corescore_ep2c5t144
+module corescore_ep2c5t144_devboard
 (
  input wire  clk50,
  output wire led0,
- output wire uart_txd)
+ output wire uart_txd);
 
    wire      clk;
    wire      rst;
