@@ -8,7 +8,10 @@
 
 CoreScore is an award-giving benchmark for FPGAs and their synthesis/P&R tools. It tests how many [SERV](https://github.com/olofk/serv) cores that can be put into a particular FPGA.
 
-Some more background about CoreScore can be found in the [SERV introduction video](https://diode.zone/videos/watch/0230a518-e207-4cf6-b5e2-69cc09411013)
+Some more background about CoreScore can be found in the [SERV introduction video](https://diode.zone/videos/watch/0230a518-e207-4cf6-b5e2-69cc09411013).
+
+Check out the [CoreScore World Ranking](https://corescore.store/)!
+
 ## Quick start
 
 1. Install [FuseSoC](https://github.com/olofk/fusesoc)
