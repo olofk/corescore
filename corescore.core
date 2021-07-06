@@ -508,7 +508,7 @@ generate:
   corescorecore_ep2c5t144_devboard:
     generator: corescorecore
     parameters:
-      count : 10
+      count : 11
 
   corescorecore_cisco_hwic_3g_cdma:
     generator: corescorecore
