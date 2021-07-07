@@ -12,7 +12,7 @@ filesets:
       - rtl/emitter_mux.v
       - rtl/emitter.v
     file_type: verilogSource
-    depend: [servant, serving, verilog-axis]
+    depend: ["=::serv:1.0.2", servant, serving, verilog-axis]
 
   alhambra_II:
     files:
