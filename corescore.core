@@ -54,7 +54,7 @@ filesets:
       - data/sockit.tcl: { file_type: tclSource }
       - rtl/de0_nano_clock_gen.v: { file_type: verilogSource }
       - rtl/corescore_sockit.v: { file_type: verilogSource }
-      
+
   storeypeak:
     files:
       - data/storeypeak.tcl: { file_type: tclSource }
@@ -100,13 +100,19 @@ filesets:
       - rtl/corescore_nexys_a7.v: { file_type: verilogSource }
       - data/vivado_waive.tcl: { file_type: tclSource }
       - data/nexys_a7.xdc: { file_type: xdc }
-  
+
   arty_a7_35t:
     files:
       - rtl/arty_a7_35t_clock_gen.v: { file_type: verilogSource }
       - rtl/corescore_arty_a7_35t.v: { file_type: verilogSource }
       - data/vivado_waive.tcl: { file_type: tclSource }
       - data/arty_a7_35t.xdc: { file_type: xdc }
+
+  ebaz4205:
+    files:
+      - rtl/ebaz4205_clock_gen.v: { file_type: verilogSource }
+      - rtl/corescore_ebaz4205.v: { file_type: verilogSource }
+      - data/ebaz4205.xdc: { file_type: xdc }
 
   hpc_k7:
     files:
@@ -265,7 +271,7 @@ targets:
         family: Cyclone V
         device: 5CSXFC6D6F31C6
     toplevel: corescore_sockit
-    
+
   storeypeak:
     default_tool: quartus
     description: Microsoft Storey Peak card
@@ -328,7 +334,7 @@ targets:
     tools:
       vivado: { part: xc7a100tcsg324-1 }
     toplevel: corescore_nexys_a7
-  
+
   arty_a7_35t:
     default_tool: vivado
     description: Digilent Arty A7 35t with 100 cores + SERV emitter
@@ -337,6 +343,15 @@ targets:
     tools:
       vivado: { part: xc7a35ticsg324-1L }
     toplevel: corescore_arty_a7_35t
+
+  ebaz4205:
+    default_tool: vivado
+    description: EBAZ4205 'Development' Board + SERV emitter
+    filesets: [rtl, ebaz4205]
+    generate: [corescorecore_ebaz4205]
+    tools:
+      vivado: { part: xc7z010clg400-1 }
+    toplevel: corescore_ebaz4205
 
   hpc_k7:
     default_tool: vivado
@@ -557,6 +572,11 @@ generate:
     generator: corescorecore
     parameters:
       count: 100
+
+  corescorecore_ebaz4205:
+    generator: corescorecore
+    parameters:
+      count: 85
 
   corescorecore_hpc_k7:
     generator: corescorecore
