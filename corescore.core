@@ -100,6 +100,13 @@ filesets:
       - rtl/corescore_nexys_a7.v: { file_type: verilogSource }
       - data/vivado_waive.tcl: { file_type: tclSource }
       - data/nexys_a7.xdc: { file_type: xdc }
+  
+  arty_a7_35t:
+    files:
+      - rtl/arty_a7_35t_clock_gen.v: { file_type: verilogSource }
+      - rtl/corescore_arty_a7_35t.v: { file_type: verilogSource }
+      - data/vivado_waive.tcl: { file_type: tclSource }
+      - data/arty_a7_35t.xdc: { file_type: xdc }
 
   hpc_k7:
     files:
@@ -321,6 +328,15 @@ targets:
     tools:
       vivado: { part: xc7a100tcsg324-1 }
     toplevel: corescore_nexys_a7
+  
+  arty_a7_35t:
+    default_tool: vivado
+    description: Digilent Arty A7 35t with 100 cores + SERV emitter
+    filesets: [rtl, arty_a7_35t]
+    generate: [corescorecore_arty_a7_35t]
+    tools:
+      vivado: { part: xc7a35ticsg324-1L }
+    toplevel: corescore_arty_a7_35t
 
   hpc_k7:
     default_tool: vivado
@@ -536,6 +552,11 @@ generate:
     generator: corescorecore
     parameters:
       count: 268
+
+  corescorecore_arty_a7_35t:
+    generator: corescorecore
+    parameters:
+      count: 100
 
   corescorecore_hpc_k7:
     generator: corescorecore
