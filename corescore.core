@@ -184,6 +184,13 @@ filesets:
       - data/vivado_waive.tcl: { file_type: tclSource }
       - data/vcu118.xdc: { file_type: xdc }
 
+  vcu128:
+    files:
+      - rtl/corescore_vcu128_clock_gen.v: { file_type: verilogSource }
+      - rtl/corescore_vcu128.v: { file_type: verilogSource }
+      - data/vivado_waive.tcl: { file_type: tclSource }
+      - data/vcu128.xdc: { file_type: xdc }
+
   haps_dx7:
     files:
       - rtl/corescore_haps_dx7_clock_gen.v: { file_type: verilogSource }
@@ -466,6 +473,14 @@ targets:
       vivado: { part: xcvu9p-flga2104-2l-e }
     toplevel: corescore_vcu118
 
+  vcu128:
+    default_tool: vivado
+    filesets: [rtl, vcu128]
+    generate: [corescorecore_vcu128]
+    tools:
+      vivado: { part: xcvu37p-fsvh2892-2-e }
+    toplevel: corescore_vcu128
+
   haps_dx7:
     default_tool: vivado
     filesets: [rtl, haps_dx7]
@@ -650,6 +665,11 @@ generate:
     generator: corescorecore
     parameters:
       count: 5087
+
+  corescorecore_vcu128:
+    generator: corescorecore
+    parameters:
+      count: 6000
 
   corescorecore_haps_dx7:
     generator: corescorecore
