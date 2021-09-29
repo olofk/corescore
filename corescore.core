@@ -27,6 +27,13 @@ filesets:
       - rtl/cyc1000_clock_gen.v: { file_type: verilogSource }
       - rtl/corescore_cyc1000.v: { file_type: verilogSource }
 
+  max1000:
+    files:
+      - data/max1000.tcl: { file_type: tclSource }
+      - data/max1000.sdc: { file_type: SDC }
+      - rtl/max1000_clock_gen.v: { file_type: verilogSource }
+      - rtl/corescore_max1000.v: { file_type: verilogSource }
+
   ep2c5t144_devboard:
     files:
       - data/ep2c5t144_devboard.tcl : {file_type : tclSource}
@@ -241,6 +248,17 @@ targets:
         family: Cyclone 10 LP
         device: 10CL025YU256C8G
     toplevel: corescore_cyc1000
+
+  max1000:
+    default_tool: quartus
+    description: TrenzElectronics max1000 with 20 cores + SERV emitter
+    filesets: [rtl, max1000]
+    generate: [corescorecore_max1000]
+    tools:
+      quartus:
+        family: Intel Max10
+        device: 10M08SAU169C8G
+    toplevel: corescore_max1000
 
   ep2c5t144_devboard:
     default_tool: quartus
@@ -550,6 +568,11 @@ generate:
     generator: corescorecore
     parameters:
       count: 60
+
+  corescorecore_max1000:
+    generator: corescorecore
+    parameters:
+      count: 20
 
   corescorecore_ep2c5t144_devboard:
     generator: corescorecore
