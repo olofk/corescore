@@ -69,6 +69,13 @@ filesets:
       - rtl/intel_a10gx_devkit_clock_gen.v: { file_type: verilogSource }
       - rtl/corescore_intel_a10gx_devkit.v: { file_type: verilogSource }
 
+  intel_s10gx_devkit:
+    files:
+      - data/intel_s10gx_devkit.tcl: { file_type: tclSource }
+      - data/intel_s10gx_devkit.sdc: { file_type: SDC }
+      - data/intel_s10gx_pll.ip: { file_type: IP }
+      - rtl/corescore_intel_s10gx_devkit.v: { file_type: verilogSource }
+
   sockit:
     files:
       - data/sockit.sdc: { file_type: SDC }
@@ -321,6 +328,17 @@ targets:
         family: Arria 10
         device: 10AX115S2F45I1SG
     toplevel: corescore_intel_a10gx_devkit
+
+  intel_s10gx_devkit:
+    default_tool: quartus
+    description: Intel Stratix 10 GX FPGA Development Kit with 5600 cores + Jtag UART
+    filesets: [rtl, intel_s10gx_devkit]
+    generate: [corescorecore_intel_s10gx_devkit]
+    tools:
+      quartus:
+        family: Stratix 10
+        device: 1SG280HU2F50E2VG
+    toplevel: corescore_intel_s10gx_devkit
 
   sockit:
     default_tool: quartus
@@ -616,6 +634,11 @@ generate:
     generator: corescorecore
     parameters:
       count: 2600
+
+  corescorecore_intel_s10gx_devkit:
+    generator: corescorecore
+    parameters:
+      count: 5600
 
   corescorecore_sockit:
     generator: corescorecore
