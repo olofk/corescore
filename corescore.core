@@ -62,6 +62,13 @@ filesets:
       - rtl/intel_cyc10lp_devkit_clock_gen.v: { file_type: verilogSource }
       - rtl/corescore_intel_cyc10lp_devkit.v: { file_type: verilogSource }
 
+  intel_a10gx_devkit:
+    files:
+      - data/intel_a10gx_devkit.tcl: { file_type: tclSource }
+      - data/intel_a10gx_devkit.sdc: { file_type: SDC }
+      - rtl/intel_a10gx_devkit_clock_gen.v: { file_type: verilogSource }
+      - rtl/corescore_intel_a10gx_devkit.v: { file_type: verilogSource }
+
   sockit:
     files:
       - data/sockit.sdc: { file_type: SDC }
@@ -303,6 +310,17 @@ targets:
         family: Intel Cyclone 10 LP
         device: 10CL025YU256I7G
     toplevel: corescore_intel_cyc10lp_devkit
+
+  intel_a10gx_devkit:
+    default_tool: quartus
+    description: Intel Arria 10 GX FPGA Development Kit with 2600 cores + Jtag UART
+    filesets: [rtl, intel_a10gx_devkit]
+    generate: [corescorecore_intel_a10gx_devkit]
+    tools:
+      quartus:
+        family: Arria 10
+        device: 10AX115S2F45I1SG
+    toplevel: corescore_intel_a10gx_devkit
 
   sockit:
     default_tool: quartus
@@ -593,6 +611,11 @@ generate:
     generator: corescorecore
     parameters:
       count: 64
+
+  corescorecore_intel_a10gx_devkit:
+    generator: corescorecore
+    parameters:
+      count: 2600
 
   corescorecore_sockit:
     generator: corescorecore
