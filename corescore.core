@@ -155,19 +155,6 @@ filesets:
       - data/vivado_waive.tcl : {file_type : tclSource}
       - data/marble.xdc : {file_type : xdc}
 
-  marble_sem:
-    files:
-      - rtl/corescore_marble_sem.v : {file_type : verilogSource}
-      - rtl/sem/sem_0_sem_cfg.v : {file_type : verilogSource}
-      - rtl/sem/sem_0_sem_mon_fifo.v : {file_type : verilogSource}
-      - rtl/sem/sem_0_sem_mon_sipo.v : {file_type : verilogSource}
-      - rtl/sem/sem_0_sem_example.v : {file_type : verilogSource}
-      - rtl/sem/sem_0_sem_mon_piso.v : {file_type : verilogSource}
-      - rtl/sem/sem_0_sem_mon.v : {file_type : verilogSource}
-      - data/sem_ip.tcl : {file_type : tclSource}
-      - data/vivado_waive.tcl : {file_type : tclSource}
-      - data/marble.xdc : {file_type : xdc}
-
   hpc_ku:
     files:
       - rtl/hpc_ku_clock_gen.v : {file_type : verilogSource}
@@ -464,15 +451,6 @@ targets:
     default_tool: vivado
     description: Marble board Kintex7 with 481 cores@100MHz + SERV emitter (360000bps UART)
     filesets : [rtl, marble]
-    generate : [corescorecore_marble]
-    tools:
-      vivado: {part : xc7k160tffg676-2}
-    toplevel : corescore_marble
-
-  marble_sem:
-    default_tool: vivado
-    description: Marble board Kintex7, with Single Event Mitigation IP (SEM UART at 115200, SERV UART on PMOD:0 at 360000)
-    filesets : [rtl, marble_sem]
     generate : [corescorecore_marble]
     tools:
       vivado: {part : xc7k160tffg676-2}
