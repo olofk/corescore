@@ -7,8 +7,6 @@ module corescore_marble (
     input wire i_uart_rx
 );
 
-    assign o_uart_tx2 = o_uart_tx;
-
     wire main_crg_clkin, main_crg_clkout0;
     IBUFDS IBUFDS(
         .I(i_clk_p),
@@ -42,9 +40,10 @@ module corescore_marble (
     reg rst = 1;
     reg locked_r = 0;
 
-    BUFG BUFG(
+    BUFGCE BUFGCE(
         .I(main_crg_clkout0),
-        .O(clk)
+        .O(clk),
+        .CE(locked)
     );
 
     always @(posedge clk) begin
@@ -74,6 +73,16 @@ module corescore_marble (
       .i_tlast   (tlast),
       .i_tvalid  (tvalid),
       .o_tready  (tready),
-      .o_uart_tx (o_uart_tx));
+      .o_uart_tx (o_uart_tx2));
+
+
+     // -----------------
+     //  SEM IP
+     // -----------------
+     sem_0_sem_example sem(
+        .icap_clk    (clk),
+        .monitor_rx  (i_uart_rx),
+        .monitor_tx  (o_uart_tx)
+     );
 
 endmodule

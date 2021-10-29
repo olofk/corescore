@@ -2,6 +2,7 @@ import curses
 import serial
 import sys
 import msgpack
+from time import time, sleep
 
 COREY = r'''
 /---------\
@@ -16,6 +17,8 @@ COREY = r'''
                  |   cores!  |
                  \-----------/
 '''
+
+
 
 
 def main(stdscr):
@@ -35,9 +38,23 @@ def main(stdscr):
     win.refresh()
 
     found_cores = []
-    with serial.Serial(dev, 57600) as ser:
+
+    def refresh():
+        stdscr.addstr(
+            10, 35, "Found {} cores".format(len(found_cores))
+        )
+        stdscr.refresh()
+
+    tsStart = time()
+    with serial.Serial(dev, int(sys.argv[2]), timeout=1) as ser:
         unpacker = msgpack.Unpacker(raw=False)
         while(True):
+            # Reset found cores list every 1 seconds
+            if time() - tsStart > 1:
+                refresh()
+                found_cores.clear()
+                tsStart = time()
+
             buf = ser.read()
             unpacker.feed(buf)
             for o in unpacker:
@@ -48,9 +65,6 @@ def main(stdscr):
                     n = int(o[5:10])
                     if not (n in found_cores):
                         found_cores.append(n)
-                        stdscr.addstr(
-                            10, 35, "Found {} cores".format(len(found_cores)))
-                        stdscr.refresh()
-
+                        # refresh()
 
 curses.wrapper(main)
