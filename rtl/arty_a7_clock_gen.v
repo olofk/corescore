@@ -1,5 +1,5 @@
 `default_nettype none
-module arty_a7_35t_clock_gen
+module arty_a7_clock_gen
   (input wire  i_clk,
    output wire o_clk,
    output reg  o_rst);
