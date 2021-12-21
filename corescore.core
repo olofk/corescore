@@ -129,12 +129,12 @@ filesets:
       - data/vivado_waive.tcl: { file_type: tclSource }
       - data/nexys_a7.xdc: { file_type: xdc }
 
-  arty_a7_35t:
+  arty_a7:
     files:
-      - rtl/arty_a7_35t_clock_gen.v: { file_type: verilogSource }
-      - rtl/corescore_arty_a7_35t.v: { file_type: verilogSource }
+      - rtl/arty_a7_clock_gen.v: { file_type: verilogSource }
+      - rtl/corescore_arty_a7.v: { file_type: verilogSource }
       - data/vivado_waive.tcl: { file_type: tclSource }
-      - data/arty_a7_35t.xdc: { file_type: xdc }
+      - data/arty_a7.xdc: { file_type: xdc }
 
   ebaz4205:
     files:
@@ -417,11 +417,20 @@ targets:
   arty_a7_35t:
     default_tool: vivado
     description: Digilent Arty A7 35t with 100 cores + SERV emitter
-    filesets: [rtl, arty_a7_35t]
+    filesets: [rtl, arty_a7]
     generate: [corescorecore_arty_a7_35t]
     tools:
       vivado: { part: xc7a35ticsg324-1L }
-    toplevel: corescore_arty_a7_35t
+    toplevel: corescore_arty_a7
+
+  arty_a7_100t:
+    default_tool: vivado
+    description: Digilent Arty A7 100t with 306 cores + SERV emitter
+    filesets: [rtl, arty_a7]
+    generate: [corescorecore_arty_a7_100t]
+    tools:
+      vivado: { part: xc7a100tcsg324-1 }
+    toplevel: corescore_arty_a7
 
   ebaz4205:
     default_tool: vivado
@@ -679,6 +688,11 @@ generate:
     generator: corescorecore
     parameters:
       count: 100
+
+  corescorecore_arty_a7_100t:
+    generator: corescorecore
+    parameters:
+      count: 306
 
   corescorecore_ebaz4205:
     generator: corescorecore
