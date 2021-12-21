@@ -1,5 +1,5 @@
 `default_nettype none
-module corescore_arty_a7_35t
+module corescore_arty_a7
 (
  input wire  i_clk,
  output wire q,
@@ -11,7 +11,7 @@ module corescore_arty_a7_35t
    //Mirror UART output to LED
    assign q = o_uart_tx;
 
-   arty_a7_35t_clock_gen clock_gen
+   arty_a7_clock_gen clock_gen
      (.i_clk (i_clk),
       .o_clk (clk),
       .o_rst (rst));
