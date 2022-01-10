@@ -83,19 +83,28 @@ filesets:
       - rtl/de0_nano_clock_gen.v: { file_type: verilogSource }
       - rtl/corescore_sockit.v: { file_type: verilogSource }
 
-  storeypeak:
+  chameleon96:
     files:
-      - data/storeypeak.tcl: { file_type: tclSource }
-      - data/storeypeak.sdc: { file_type: SDC }
-      - rtl/storeypeak_clock_gen.v: { file_type: verilogSource }
-      - rtl/corescore_storeypeak.v: { file_type: verilogSource }
-
+      - data/chameleon96/chameleon96.sdc : {file_type : SDC}
+      - data/chameleon96/pinmap.tcl   : {file_type: tclSource}
+      - data/chameleon96/HPS.sv : {file_type : systemVerilogSource}
+      - data/chameleon96/CV_96.v : {file_type : verilogSource}
+      - rtl/chameleon96_clock_gen.v: { file_type: verilogSource }
+      - rtl/corescore_chameleon96.v: { file_type: verilogSource }
+      
   deca:
     files:
       - data/deca.sdc: { file_type: SDC }
       - data/deca.tcl: { file_type: tclSource }
       - rtl/de0_nano_clock_gen.v: { file_type: verilogSource }
       - rtl/corescore_deca.v: { file_type: verilogSource }
+
+  storeypeak:
+    files:
+      - data/storeypeak.tcl: { file_type: tclSource }
+      - data/storeypeak.sdc: { file_type: SDC }
+      - rtl/storeypeak_clock_gen.v: { file_type: verilogSource }
+      - rtl/corescore_storeypeak.v: { file_type: verilogSource }
 
   de0_nano:
     files:
@@ -351,16 +360,16 @@ targets:
         device: 5CSXFC6D6F31C6
     toplevel: corescore_sockit
 
-  storeypeak:
-    default_tool: quartus
-    description: Microsoft Storey Peak card
-    filesets: [rtl, storeypeak]
-    generate: [corescorecore_storeypeak]
+  chameleon96:
+    default_tool : quartus
+    description : Chameleon96 (Arrow 96 CV SoC Board)
+    filesets : [rtl, chameleon96]
+    generate: [corescorecore_chameleon96]
     tools:
       quartus:
-        family: Stratix V
-        device: 5SGSMD5K1F40C2
-    toplevel: corescore_storeypeak
+        family : Cyclone V
+        device : 5CSEBA6U19I7
+    toplevel: CV_96
 
   deca:
     default_tool: quartus
@@ -373,6 +382,17 @@ targets:
         device: 10M50DAF484C6GES
     toplevel: corescore_deca
 
+  storeypeak:
+    default_tool: quartus
+    description: Microsoft Storey Peak card
+    filesets: [rtl, storeypeak]
+    generate: [corescorecore_storeypeak]
+    tools:
+      quartus:
+        family: Stratix V
+        device: 5SGSMD5K1F40C2
+    toplevel: corescore_storeypeak
+    
   de0_nano:
     default_tool: quartus
     filesets: [rtl, de0_nano]
@@ -654,15 +674,20 @@ generate:
     parameters:
       count: 284
 
-  corescorecore_storeypeak:
+  corescorecore_chameleon96:
     generator: corescorecore
     parameters:
-      count: 1152
+      count: 270
 
   corescorecore_deca:
     generator: corescorecore
     parameters:
       count: 139
+
+  corescorecore_storeypeak:
+    generator: corescorecore
+    parameters:
+      count: 1152
 
   corescorecore_de0_nano:
     generator: corescorecore
