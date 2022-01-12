@@ -158,6 +158,12 @@ filesets:
       - data/vivado_waive.tcl : {file_type : tclSource}
       - data/hpc_k7.xdc : {file_type : xdc}
 
+  marble:
+    files:
+      - rtl/corescore_marble.v : {file_type : verilogSource}
+      - data/vivado_waive.tcl : {file_type : tclSource}
+      - data/marble.xdc : {file_type : xdc}
+
   hpc_ku:
     files:
       - rtl/hpc_ku_clock_gen.v : {file_type : verilogSource}
@@ -470,6 +476,15 @@ targets:
       vivado: {part : xc7k420tffg901-2}
     toplevel : corescore_hpc_k7
 
+  marble:
+    default_tool: vivado
+    description: Marble board Kintex7 with 481 cores@100MHz + SERV emitter (360000bps UART)
+    filesets : [rtl, marble]
+    generate : [corescorecore_marble]
+    tools:
+      vivado: {part : xc7k160tffg676-2}
+    toplevel : corescore_marble
+
   hpc_ku:
     default_tool: vivado
     description: HPCV2 KintexUltraScale ku040 with 1024 cores@128MHz + SERV emitter (460800bps UART)
@@ -728,6 +743,11 @@ generate:
     generator: corescorecore
     parameters:
       count : 1024
+
+  corescorecore_marble:
+    generator: corescorecore
+    parameters:
+      count : 481  # works: 450, 481, failed: 512
 
   corescorecore_hpc_ku:
     generator: corescorecore
