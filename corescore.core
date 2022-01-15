@@ -138,6 +138,13 @@ filesets:
       - data/vivado_waive.tcl: { file_type: tclSource }
       - data/nexys_a7.xdc: { file_type: xdc }
 
+  nexys_video:
+    files:
+      - rtl/nexys_video_clock_gen.v: { file_type: verilogSource }
+      - rtl/corescore_nexys_video.v: { file_type: verilogSource }
+      - data/vivado_waive.tcl: { file_type: tclSource }
+      - data/nexys_video.xdc: { file_type: xdc }
+
   arty_a7:
     files:
       - rtl/arty_a7_clock_gen.v: { file_type: verilogSource }
@@ -440,6 +447,15 @@ targets:
       vivado: { part: xc7a100tcsg324-1 }
     toplevel: corescore_nexys_a7
 
+  nexys_video:
+    default_tool: vivado
+    description: Digilent Nexys Video with 652 cores + SERV emitter
+    filesets: [rtl, nexys_video]
+    generate: [corescorecore_nexys_video]
+    tools:
+      vivado: { part: xc7a200tsbg484-1 }
+    toplevel: corescore_nexys_video
+
   arty_a7_35t:
     default_tool: vivado
     description: Digilent Arty A7 35t with 100 cores + SERV emitter
@@ -723,6 +739,11 @@ generate:
     generator: corescorecore
     parameters:
       count: 268
+
+  corescorecore_nexys_video:
+    generator: corescorecore
+    parameters:
+      count: 652
 
   corescorecore_arty_a7_35t:
     generator: corescorecore
