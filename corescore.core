@@ -220,6 +220,12 @@ filesets:
       - rtl/corescore_icesugar.v: { file_type: verilogSource }
       - data/icesugar.pcf: { file_type: PCF }
 
+  icebreaker:
+    files:
+      - rtl/corescore_icebreaker.v: { file_type: verilogSource }
+      - data/icebreaker.pcf: { file_type: PCF }
+    depend: ["fusesoc:utils:generators"]
+
   zcu106:
     files:
       - rtl/corescore_zcu106_clock_gen.v: { file_type: verilogSource }
@@ -596,6 +602,18 @@ targets:
         yosys_synth_options: [-dffe_min_ce_use, 8]
     toplevel: corescore_icesugar
 
+  icebreaker:
+    default_tool: icestorm
+    description: 1BitSquared iCE40UP5K based open-source hardware board
+    filesets: [rtl, icebreaker]
+    generate: [corescorecore_icebreaker]
+    tools:
+      icestorm:
+        nextpnr_options: [--package, sg48, --up5k, --freq, 16]
+        pnr: next
+        yosys_synth_options: [-dffe_min_ce_use, 8]
+    toplevel: corescore_icebreaker
+
   vcu118:
     default_tool: vivado
     filesets: [rtl, vcu118]
@@ -823,6 +841,11 @@ generate:
       count: 10
 
   corescorecore_icesugar:
+    generator: corescorecore
+    parameters:
+      count: 10
+
+  corescorecore_icebreaker:
     generator: corescorecore
     parameters:
       count: 10
