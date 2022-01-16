@@ -239,6 +239,13 @@ filesets:
       - data/icebreaker.pcf: { file_type: PCF }
     depend: ["fusesoc:utils:generators"]
 
+  kc705:
+    files:
+      - rtl/corescore_kc705.v: { file_type: verilogSource }
+      - rtl/corescore_kc705_clock_gen.v: { file_type: verilogSource }
+      - data/vivado_waive.tcl: { file_type: tclSource }
+      - data/kc705.xdc: { file_type: xdc }
+
   zcu106:
     files:
       - rtl/corescore_zcu106_clock_gen.v: { file_type: verilogSource }
@@ -649,6 +656,15 @@ targets:
         yosys_synth_options: [-dffe_min_ce_use, 8]
     toplevel: corescore_icebreaker
 
+  kc705:
+    default_tool: vivado
+    description: Xilinx KC705 evaluation board with 960 cores + SERV emitter
+    filesets: [rtl, kc705]
+    generate: [corescorecore_kc705]
+    tools:
+      vivado: { part: xc7k325tffg900-2 }
+    toplevel: corescore_kc705
+
   vcu118:
     default_tool: vivado
     filesets: [rtl, vcu118]
@@ -899,6 +915,11 @@ generate:
     generator: corescorecore
     parameters:
       count: 2
+
+  corescorecore_kc705:
+    generator: corescorecore
+    parameters:
+      count: 960
 
   corescorecore_vcu118:
     generator: corescorecore
