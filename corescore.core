@@ -20,6 +20,12 @@ filesets:
       - data/alhambra_II.pcf: { file_type: PCF }
     depend: ["fusesoc:utils:generators"]
 
+  hx8k:
+    files:
+      - rtl/corescore_hx8k.v: { file_type: verilogSource }
+      - data/hx8k.pcf: { file_type: PCF }
+    depend: ["fusesoc:utils:generators"]
+
   cyc1000:
     files:
       - data/cyc1000.tcl: { file_type: tclSource }
@@ -286,6 +292,17 @@ targets:
         nextpnr_options: [--hx8k, --package, "tq144:4k", --freq, 16]
         pnr: next
     toplevel: corescore_alhambra_II
+
+  hx8k:
+    default_tool: icestorm
+    description: Lattice iCE40-HX8K development board
+    filesets: [rtl, hx8k]
+    generate: [corescorecore_hx8k, hx8k_pll]
+    tools:
+      icestorm:
+        nextpnr_options: [--hx8k, --package, "ct256", --freq, 16]
+        pnr: next
+    toplevel: corescore_hx8k
 
   cyc1000:
     default_tool: quartus
@@ -695,6 +712,11 @@ generate:
     parameters:
       count: 12
 
+  corescorecore_hx8k:
+    generator: corescorecore
+    parameters:
+      count: 12
+
   corescorecore_cyc1000:
     generator: corescorecore
     parameters:
@@ -888,6 +910,13 @@ generate:
       module: true
 
   alhambra_II_pll:
+    generator: icepll
+    parameters:
+      freq_in: 12
+      freq_out: 16
+      module: true
+
+  hx8k_pll:
     generator: icepll
     parameters:
       freq_in: 12
