@@ -145,6 +145,13 @@ filesets:
       - data/vivado_waive.tcl: { file_type: tclSource }
       - data/nexys_video.xdc: { file_type: xdc }
 
+  genesys2:
+    files:
+      - rtl/genesys2_clock_gen.v: { file_type: verilogSource }
+      - rtl/corescore_genesys2.v: { file_type: verilogSource }
+      - data/vivado_waive.tcl: { file_type: tclSource }
+      - data/genesys2.xdc: { file_type: xdc }
+
   arty_a7:
     files:
       - rtl/arty_a7_clock_gen.v: { file_type: verilogSource }
@@ -457,6 +464,15 @@ targets:
       vivado: { part: xc7a200tsbg484-1 }
     toplevel: corescore_nexys_video
 
+  genesys2:
+    default_tool: vivado
+    description: Digilent Genesys 2 with 967 cores + SERV emitter
+    filesets: [rtl, genesys2]
+    generate: [corescorecore_genesys2]
+    tools:
+      vivado: { part: xc7k325tffg900-2 }
+    toplevel: corescore_genesys2
+
   arty_a7_35t:
     default_tool: vivado
     description: Digilent Arty A7 35t with 100 cores + SERV emitter
@@ -745,6 +761,11 @@ generate:
     generator: corescorecore
     parameters:
       count: 652
+
+  corescorecore_genesys2:
+    generator: corescorecore
+    parameters:
+      count: 967
 
   corescorecore_arty_a7_35t:
     generator: corescorecore
