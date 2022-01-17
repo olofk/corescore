@@ -25,7 +25,10 @@ def main(stdscr):
     curses.curs_set(0)
     y = 0
     for l in COREY.split('\n'):
-        stdscr.addstr(y, 0, l)
+        try:
+            stdscr.addstr(y, 0, l)
+        except curses.error:
+            pass
         y += 1
     stdscr.box(0, 0)
     stdscr.refresh()
