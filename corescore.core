@@ -172,6 +172,13 @@ filesets:
       - data/vivado_waive.tcl: { file_type: tclSource }
       - data/arty_a7.xdc: { file_type: xdc }
 
+  cmod_a7:
+    files:
+      - rtl/cmod_a7_clock_gen.v: { file_type: verilogSource }
+      - rtl/corescore_cmod_a7.v: { file_type: verilogSource }
+      - data/vivado_waive.tcl: { file_type: tclSource }
+      - data/cmod_a7.xdc: { file_type: xdc }
+
   ebaz4205:
     files:
       - rtl/ebaz4205_clock_gen.v: { file_type: verilogSource }
@@ -539,6 +546,15 @@ targets:
       vivado: { part: xc7a100tcsg324-1 }
     toplevel: corescore_arty_a7
 
+  cmod_a7_35t:
+    default_tool: vivado
+    description: Digilent CMOD A7 35t with 100 cores + SERV emitter
+    filesets: [rtl, cmod_a7]
+    generate: [corescorecore_cmod_a7_35t]
+    tools:
+      vivado: { part: xc7a35tcpg236-1 }
+    toplevel: corescore_cmod_a7
+
   ebaz4205:
     default_tool: vivado
     description: EBAZ4205 'Development' Board + SERV emitter
@@ -855,6 +871,11 @@ generate:
     generator: corescorecore
     parameters:
       count: 306
+
+  corescorecore_cmod_a7_35t:
+    generator: corescorecore
+    parameters:
+      count: 100
 
   corescorecore_ebaz4205:
     generator: corescorecore
