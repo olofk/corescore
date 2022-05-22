@@ -12,11 +12,11 @@ module hpc_k7_clock_gen
      #(.BANDWIDTH("OPTIMIZED"),
        .CLKFBOUT_MULT(16),
        .CLKIN1_PERIOD(10.0), //100MHz
-       .CLKOUT0_DIVIDE(12.5),
+       .CLKOUT0_DIVIDE(100),
        .DIVCLK_DIVIDE(1),
        .STARTUP_WAIT("FALSE"))
    PLLE2_BASE_inst
-     (.CLKOUT0(o_clk),
+     (.CLKOUT0(o_clk), // 100MHz x 16 / 100 = 16MHz
       .CLKOUT1(),
       .CLKOUT2(),
       .CLKOUT3(),
