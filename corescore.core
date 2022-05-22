@@ -550,7 +550,7 @@ targets:
 
   hpc_k7:
     default_tool: vivado
-    description: HPCV2 Kintex7 k7420 with 1024 cores@128MHz + SERV emitter (460800bps UART)
+    description: HPCV2 Kintex7 k7420 with 1276 cores@16MHz + SERV emitter (57600bps UART)
     filesets : [rtl, hpc_k7]
     generate : [corescorecore_hpc_k7]
     tools:
@@ -864,7 +864,7 @@ generate:
   corescorecore_hpc_k7:
     generator: corescorecore
     parameters:
-      count : 1024
+      count : 1276
 
   corescorecore_marble:
     generator: corescorecore
