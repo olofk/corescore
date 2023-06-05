@@ -132,7 +132,14 @@ filesets:
       - data/de10_nano.tcl: { file_type: tclSource }
       - rtl/de0_nano_clock_gen.v: { file_type: verilogSource }
       - rtl/corescore_de10_nano.v: { file_type: verilogSource }
-
+      
+  de10_nano_mistral:
+    files:
+      - data/de10_nano_mistral.qsf : {file_type: QSF}
+      - rtl/corescore_emitter_uart.v: { file_type: verilogSource }
+ #     - rtl/de10_nano_mistral_clock_gen.v: { file_type: verilogSource }
+      - rtl/corescore_de10_nano_mistral.v: { file_type: verilogSource } 
+   
   de5_net:
     files:
       - data/de5_net.sdc: { file_type: SDC }
@@ -498,6 +505,16 @@ targets:
         board_device_index : 2
     toplevel: corescore_de10_nano
 
+  de10_nano_mistral:
+    default_tool: mistral
+    filesets: [rtl, de10_nano_mistral]
+    generate: [corescorecore_de10_nano_mistral]
+    tools:
+      mistral:
+        yosys_synth_options : [-family cyclonev -nodsp ]
+        device: 5CSEBA6U23I7
+    toplevel: corescore_de10_nano_mistral
+
   de5_net:
     default_tool: quartus
     filesets: [rtl, de5_net]
@@ -851,11 +868,17 @@ generate:
     generator: corescorecore
     parameters:
       count: 61
+      
 
   corescorecore_de10_nano:
     generator: corescorecore
     parameters:
       count: 271
+      
+  corescorecore_de10_nano_mistral:
+    generator: corescorecore
+    parameters:
+      count: 60
 
   corescorecore_de5_net:
     generator: corescorecore
