@@ -137,7 +137,6 @@ filesets:
     files:
       - data/de10_nano_mistral.qsf : {file_type: QSF}
       - rtl/corescore_emitter_uart.v: { file_type: verilogSource }
- #     - rtl/de10_nano_mistral_clock_gen.v: { file_type: verilogSource }
       - rtl/corescore_de10_nano_mistral.v: { file_type: verilogSource } 
    
   de5_net:
