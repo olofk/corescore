@@ -5,20 +5,22 @@ module corescore_de10_nano_mistral
    input wire i_rst_n,
    output wire o_uart_tx);
 
- //  wire        clk;
- //  wire        locked;
+   
+   reg  div_clk = 0;
+   reg  counter = 0;
+   
 
-  //Create a 16MHz clock from 12MHz using PLL
- // pll pll12
- //   (.clock_in  (i_clk),
- //    .clock_out (clk),
- //    .locked    (locked));
+   always@(posedge i_clk) begin
+
+      counter <= counter + 1;
+      if(counter == 1) div_clk <= ~div_clk;
+      
+   end   
+
+   
    wire	       rst;
    
    assign rst  = !i_rst_n;
-
-  // always @(posedge clk)
-  //   rst <= !locked;
 
    parameter memfile_emitter = "emitter.hex";
 
@@ -28,15 +30,15 @@ module corescore_de10_nano_mistral
    wire        tready;
 
    corescorecore corescorecore
-     (.i_clk     (i_clk),
+     (.i_clk     (div_clk),
       .i_rst     (rst),
       .o_tdata   (tdata),
       .o_tlast   (tlast),
       .o_tvalid  (tvalid),
       .i_tready  (tready));
 
-   corescore_emitter_uart #(.clk_freq_hz (50_000_000)) emitter
-     (.i_clk     (i_clk),
+   corescore_emitter_uart #(.clk_freq_hz (12_500_000)) emitter
+     (.i_clk     (div_clk),
       .i_rst     (rst),
       .i_data    (tdata),
       .i_valid   (tvalid),

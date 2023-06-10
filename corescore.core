@@ -511,6 +511,7 @@ targets:
     tools:
       mistral:
         yosys_synth_options : [-family cyclonev -nodsp ]
+        nextpnr_options: [--freq,12.5]
         device: 5CSEBA6U23I7
     toplevel: corescore_de10_nano_mistral
 
@@ -877,7 +878,7 @@ generate:
   corescorecore_de10_nano_mistral:
     generator: corescorecore
     parameters:
-      count: 60
+      count: 74
 
   corescorecore_de5_net:
     generator: corescorecore
