@@ -89,6 +89,12 @@ filesets:
       - data/intel_s10gx_pll.ip: { file_type: IP }
       - rtl/corescore_intel_s10gx_devkit.v: { file_type: verilogSource }
 
+  intel_agilex7:
+    files:
+      - data/intel_agilex7.tcl: { file_type: tclSource }
+      - data/intel_agilex7.sdc: { file_type: SDC }
+      - rtl/corescore_intel_agilex7.v: { file_type: verilogSource }
+
   sockit:
     files:
       - data/sockit.sdc: { file_type: SDC }
@@ -430,6 +436,61 @@ targets:
         family: Stratix 10
         device: 1SG280HU2F50E2VG
     toplevel: corescore_intel_s10gx_devkit
+
+  intel_agfa006r16a:
+    default_tool: quartus
+    description: Intel Agilex 7 FPGA F-Series with 1200 cores + Jtag UART
+    filesets: [rtl, intel_agilex7]
+    generate: [corescorecore_intel_agfa006r16a]
+    tools:
+      quartus:
+        family: Agilex
+        device: AGFA006R16A2E2V
+    toplevel: corescore_intel_agilex7
+
+  intel_agfb014r24b:
+    default_tool: quartus
+    description: Intel Agilex 7 FPGA F-Series with 2950 cores + Jtag UART
+    filesets: [rtl, intel_agilex7]
+    generate: [corescorecore_intel_agfb014r24b]
+    tools:
+      quartus:
+        family: Agilex
+        device: AGFB014R24B2E2V
+    toplevel: corescore_intel_agilex7
+
+  intel_agfa023r24c:
+    default_tool: quartus
+    description: Intel Agilex 7 FPGA F-Series with 4720 cores + Jtag UART
+    filesets: [rtl, intel_agilex7]
+    generate: [corescorecore_intel_agfa023r24c]
+    tools:
+      quartus:
+        family: Agilex
+        device: AGFA023R24C2E2V
+    toplevel: corescore_intel_agilex7
+
+  intel_agfb027r24c:
+    default_tool: quartus
+    description: Intel Agilex 7 FPGA F-Series with 5525 cores + Jtag UART
+    filesets: [rtl, intel_agilex7]
+    generate: [corescorecore_intel_agfb027r24c]
+    tools:
+      quartus:
+        family: Agilex
+        device: AGFB027R24C2E2VR2
+    toplevel: corescore_intel_agilex7
+
+  intel_agia040r39a:
+    default_tool: quartus
+    description: Intel Agilex 7 FPGA I-Series with 8225 cores + Jtag UART
+    filesets: [rtl, intel_agilex7]
+    generate: [corescorecore_intel_agia040r39a]
+    tools:
+      quartus:
+        family: Agilex
+        device: AGIA040R39A2E2V
+    toplevel: corescore_intel_agilex7
 
   sockit:
     default_tool: quartus
@@ -826,6 +887,31 @@ generate:
     generator: corescorecore
     parameters:
       count: 5600
+
+  corescorecore_intel_agfa006r16a:
+    generator: corescorecore
+    parameters:
+      count: 1200
+
+  corescorecore_intel_agfb014r24b:
+    generator: corescorecore
+    parameters:
+      count: 2970
+
+  corescorecore_intel_agfa023r24c:
+    generator: corescorecore
+    parameters:
+      count: 4720
+
+  corescorecore_intel_agfb027r24c:
+    generator: corescorecore
+    parameters:
+      count: 5525
+
+  corescorecore_intel_agia040r39a:
+    generator: corescorecore
+    parameters:
+      count: 8225
 
   corescorecore_sockit:
     generator: corescorecore
