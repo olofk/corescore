@@ -878,7 +878,7 @@ generate:
   corescorecore_de10_nano_mistral:
     generator: corescorecore
     parameters:
-      count: 74
+      count: 84
 
   corescorecore_de5_net:
     generator: corescorecore
