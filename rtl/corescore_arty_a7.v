@@ -16,8 +16,6 @@ module corescore_arty_a7
       .o_clk (clk),
       .o_rst (rst));
 
-   parameter memfile_emitter = "emitter.hex";
-
    wire [7:0]  tdata;
    wire        tlast;
    wire        tvalid;
@@ -31,11 +29,10 @@ module corescore_arty_a7
       .o_tvalid  (tvalid),
       .i_tready  (tready));
 
-   emitter #(.memfile (memfile_emitter)) emitter
+   emitter_uart emitter
      (.i_clk     (clk),
       .i_rst     (rst),
       .i_tdata   (tdata),
-      .i_tlast   (tlast),
       .i_tvalid  (tvalid),
       .o_tready  (tready),
       .o_uart_tx (o_uart_tx));

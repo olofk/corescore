@@ -11,6 +11,7 @@ filesets:
       - rtl/axis2wb.v
       - rtl/emitter_mux.v
       - rtl/emitter.v
+      - rtl/emitter_uart.v
     file_type: verilogSource
     depend: ["=::serv:1.0.2", "=::servant:1.0.2-r1", "=::serving:1.0.2", verilog-axis]
 
@@ -537,9 +538,9 @@ targets:
 
   arty_a7_35t:
     default_tool: vivado
-    description: Digilent Arty A7 35t with 100 cores + SERV emitter
+    description: Digilent Arty A7 35t with 104 cores
     filesets: [rtl, arty_a7]
-    generate: [corescorecore_arty_a7_35t]
+    generate: [corescorecore : {count: 104}]
     tools:
       vivado: { part: xc7a35ticsg324-1L }
     toplevel: corescore_arty_a7
@@ -911,6 +912,11 @@ generate:
     generator: corescorecore
     parameters:
       count : 1024
+
+  corescorecore:
+    generator: corescorecore
+    parameters:
+      count: 10
 
   corescorecore_sim:
     generator: corescorecore
