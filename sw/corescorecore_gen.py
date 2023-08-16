@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 from fusesoc.capi2.generator import Generator
+from math import ceil, floor, log2
 import os
 import shutil
 import subprocess
@@ -104,7 +105,10 @@ class CoreScoreCoreGenerator(Generator):
         self.gen_corescorecore(count)
         self.add_files(files)
 
-    def gen_corescorecore(self, count):
+    def gen_corescorecore(self, count, bufsize=128):
+
+        n = floor(bufsize/23)
+
         corescorecore = VerilogWriter('corescorecore')
 
         corescorecore.add(ModulePort('i_clk', 'input'))
@@ -114,62 +118,91 @@ class CoreScoreCoreGenerator(Generator):
         corescorecore.add(ModulePort('o_tvalid', 'output'))
         corescorecore.add(ModulePort('i_tready', 'input'))
 
-        corescorecore.add(Wire('tdata', count*8))
-        corescorecore.add(Wire('tlast', count))
-        corescorecore.add(Wire('tvalid', count))
-        corescorecore.add(Wire('tready', count))
+        corescorecore.add(Wire('data' , 8))
+        corescorecore.add(Wire('valid'))
+        corescorecore.add(Wire('empty'))
 
         for idx in range(count):
+            corescorecore.add(Wire(f'data{idx}' , 8))
+            corescorecore.add(Wire(f'valid{idx}'))
+            corescorecore.add(Wire(f'token{idx}'))
+
+            if idx == 0:
+                idata  = "8'd0"
+                ilast  = "1'b0"
+                ivalid = "1'b0"
+                itoken = f"token{count-1}"
+                odata  = f"data{idx}"
+                olast  = f"last{idx}"
+                ovalid = f"valid{idx}"
+                otoken = f"token{idx}"
+            elif idx == count-1:
+                idata  = f"data{idx-1}"
+                ilast  = f"last{idx-1}"
+                ivalid = f"valid{idx-1}"
+                itoken = f"token{idx-1}"
+                odata  = f"data"
+                olast  = f"last"
+                ovalid = f"valid"
+                otoken = f"token{idx}"
+            else:
+                idata  = f"data{idx-1}"
+                ilast  = f"last{idx-1}"
+                ivalid = f"valid{idx-1}"
+                itoken = f"token{idx-1}"
+                odata  = f"data{idx}"
+                olast  = f"last{idx}"
+                ovalid = f"valid{idx}"
+                otoken = f"token{idx}"
+
+            if (idx%n == n-1):
+                corescorecore.add(Wire(f'tokenhold{idx}'))
+                otokenhold = otoken
+                otoken = f"tokenhold{idx}"
+                corescorecore.add(Instance('token_hold', f'token_hold{idx}', [],
+                                           [Port("i_clk", "i_clk"),
+                                           Port("i_rst", "i_rst"),
+                                           Port("i_token", otoken),
+                                           Port("i_hold" , "!empty"),
+                                           Port("o_token", otokenhold)],
+                                           ))
+                
             base_ports = [
-                Port('i_clk', 'i_clk'),
-                Port('i_rst', 'i_rst'),
-                Port('o_tdata', 'tdata[{}:{}]'.format(idx*8+7, idx*8)),
-                Port('o_tlast', 'tlast[{}]'.format(idx)),
-                Port('o_tvalid', 'tvalid[{}]'.format(idx)),
-                Port('i_tready', 'tready[{}]'.format(idx)),
+                Port('i_clk'  , 'i_clk'),
+                Port('i_rst'  , 'i_rst'),
+                Port('i_data' , idata),
+                Port('i_last' , "1'b0"),
+                Port('i_valid', ivalid),
+                Port('i_token', itoken),
+                Port('o_data' , odata),
+                Port('o_last' , ""),
+                Port('o_valid', ovalid),
+                Port('o_token', otoken),
             ]
             corescorecore.add(Instance('base', 'core_'+str(idx),
                                        [Parameter('memfile', '"core_{}.hex"'.format(idx)),
-                                        Parameter('memsize', '256')],
+                                        Parameter('memsize', '256'),
+                                        Parameter("TOKEN_INIT", "1'b1" if idx == 0 else "1'b0")],
                                        base_ports))
 
-        arbports = [
-            Port('clk', 'i_clk'),
-            Port('rst', 'i_rst'),
-            Port("s_axis_tdata".format(idx), "tdata"),
-            Port("s_axis_tkeep".format(idx), "{}'d0".format(count)),
-            Port("s_axis_tvalid".format(idx), 'tvalid'),
-            Port("s_axis_tready".format(idx), 'tready'),
-            Port("s_axis_tlast".format(idx), 'tlast'),
-            Port("s_axis_tid".format(idx), "{}'d0".format(count*8)),
-            Port("s_axis_tdest".format(idx), "{}'d0".format(count*8)),
-            Port("s_axis_tuser".format(idx), "{}'d0".format(count)),
-            Port('m_axis_tdata ', 'o_tdata'),
-            Port('m_axis_tkeep ', ''),
-            Port('m_axis_tvalid', 'o_tvalid'),
-            Port('m_axis_tready', 'i_tready'),
-            Port('m_axis_tlast ', 'o_tlast'),
-            Port('m_axis_tid   ', ''),
-            Port('m_axis_tdest ', ''),
-            Port('m_axis_tuser ', ''),
-        ]
-        arbparams = [
-            Parameter('S_COUNT', count),
+        fifoports = [
+            Port("clk", "i_clk"),
+            Port("rst", "i_rst"),
+            Port("din" , "data"),
+            Port("wr_en"   , "valid"),
+            Port("full", ""),
+            Port("dout" , "o_tdata"),
+            Port("rd_en"   , "i_tready & ~empty"),
+            Port("empty" , "empty"),
+            ]
+        fifoparams = [
+            Parameter('DEPTH_WIDTH', ceil(log2(bufsize))),
             Parameter('DATA_WIDTH', 8),
-            Parameter('KEEP_ENABLE', 0),
-            Parameter('KEEP_WIDTH', 1),
-            Parameter('ID_ENABLE', 0),
-            Parameter('ID_WIDTH', 8),
-            Parameter('DEST_ENABLE', 0),
-            Parameter('DEST_WIDTH', 8),
-            Parameter('USER_ENABLE', 0),
-            Parameter('USER_WIDTH', 1),
-            Parameter('ARB_TYPE', '"ROUND_ROBIN"'),
-            Parameter('LSB_PRIORITY', '"HIGH"'),
         ]
 
         corescorecore.add(
-            Instance('axis_arb_mux', 'axis_mux', arbparams, arbports))
+            Instance('fifo_fwft', 'fifo', fifoparams, fifoports))
+        corescorecore.raw = "assign o_tvalid = ~empty;\n\n"
         corescorecore.write('corescorecore.v')
 
 

@@ -5,10 +5,12 @@ name: ::corescore:0
 filesets:
   base:
     files:
+      - rtl/servcle_entry.v
+      - rtl/token_hold.v
       - rtl/wb2axis.v
       - rtl/base.v
     file_type: verilogSource
-    depend: ["=::serv:1.2.1", "=::serving:1.2.1", verilog-axis]
+    depend: ["=::serv:1.2.1", "=::serving:1.2.1", fifo]
 
   emitter_serv:
     files:
