@@ -20,11 +20,10 @@ module corescore_generic
       .o_tvalid  (tvalid),
       .i_tready  (tready));
 
-   emitter #(.memfile (memfile_emitter)) emitter
+   emitter_uart emitter
      (.i_clk     (i_clk),
       .i_rst     (i_rst),
       .i_tdata   (tdata),
-      .i_tlast   (tlast),
       .i_tvalid  (tvalid),
       .o_tready  (tready),
       .o_uart_tx (o_uart_tx));

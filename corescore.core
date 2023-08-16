@@ -5,6 +5,8 @@ name: ::corescore:0
 filesets:
   rtl:
     files:
+      - rtl/servcle_entry.v
+      - rtl/token_hold.v
       - sw/emitter.hex: { file_type: user, copyto: emitter.hex }
       - rtl/wb2axis.v
       - rtl/base.v
@@ -13,7 +15,7 @@ filesets:
       - rtl/emitter.v
       - rtl/emitter_uart.v
     file_type: verilogSource
-    depend: ["=::serv:1.0.2", "=::servant:1.0.2-r1", "=::serving:1.0.2", verilog-axis]
+    depend: ["=::serv:1.0.2", "=::servant:1.0.2-r1", "=::serving:1.0.2", fifo]
 
   alhambra_II:
     files:
