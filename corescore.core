@@ -893,7 +893,7 @@ generate:
     parameters:
       count: 1200
 
-  corescorecore_intel_agfb014r24b
+  corescorecore_intel_agfb014r24b:
     generator: corescorecore
     parameters:
       count: 2950
