@@ -901,7 +901,7 @@ generate:
   corescorecore_intel_agfa023r24c:
     generator: corescorecore
     parameters:
-      count: 4720
+      count: 4750
 
   corescorecore_intel_agfb027r24c:
     generator: corescorecore
