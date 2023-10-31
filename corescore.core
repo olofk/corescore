@@ -95,6 +95,24 @@ filesets:
       - data/intel_agilex7.sdc: { file_type: SDC }
       - rtl/corescore_intel_agilex7.v: { file_type: verilogSource }
 
+  intel_dk-si-agi027fb:
+    files:
+      - data/intel_dk-si-agi027fb.tcl: { file_type: tclSource }
+      - data/intel_agilex7.sdc: { file_type: SDC }
+      - rtl/corescore_intel_agilex7.v: { file_type: verilogSource }
+
+  intel_agilex7m:
+    files:
+      - data/intel_agilex7m.tcl: { file_type: tclSource }
+      - data/intel_agilex7.sdc: { file_type: SDC }
+      - rtl/corescore_intel_agilex7.v: { file_type: verilogSource }
+
+  bittware_ia420f_agf014:
+    files:
+      - data/bittware_ia420f_agf014.tcl: { file_type: tclSource }
+      - data/intel_agilex7.sdc: { file_type: SDC }
+      - rtl/corescore_intel_agilex7.v: { file_type: verilogSource }
+
   sockit:
     files:
       - data/sockit.sdc: { file_type: SDC }
@@ -459,9 +477,20 @@ targets:
         device: AGFB014R24B2E2V
     toplevel: corescore_intel_agilex7
 
+  bittware_ia420f_agf014:
+    default_tool: quartus
+    description: Intel Agilex 7 FPGA F-Series with 2950 cores + Jtag UART
+    filesets: [rtl, bittware_ia420f_agf014]
+    generate: [corescorecore_intel_agfb014r24b]
+    tools:
+      quartus:
+        family: Agilex
+        device: AGFB014R24B2E2V
+    toplevel: corescore_intel_agilex7
+
   intel_agfa023r24c:
     default_tool: quartus
-    description: Intel Agilex 7 FPGA F-Series with 4720 cores + Jtag UART
+    description: Intel Agilex 7 FPGA F-Series with 4750 cores + Jtag UART
     filesets: [rtl, intel_agilex7]
     generate: [corescorecore_intel_agfa023r24c]
     tools:
@@ -479,6 +508,29 @@ targets:
       quartus:
         family: Agilex
         device: AGFB027R24C2E2VR2
+    toplevel: corescore_intel_agilex7
+
+  intel_dk-si-agi027fb:
+    default_tool: quartus
+    description: Intel Agilex 7 FPGA I-Series Transceiver-SoC Development Kit 5525 cores + Jtag UART
+    filesets: [rtl, intel_dk-si-agi027fb]
+    generate: [corescorecore_intel_dk-si-agi027fb]
+    tools:
+      quartus:
+        family: Agilex
+        device: AGIB027R31B1E1VAA
+    toplevel: corescore_intel_agilex7
+
+
+  intel_agmh039r47a:
+    default_tool: quartus
+    description: Intel Agilex 7 FPGA M-Series with 7820 cores + Jtag UART
+    filesets: [rtl, intel_agilex7m]
+    generate: [corescorecore_intel_agmh039r47a]
+    tools:
+      quartus:
+        family: Agilex
+        device: AGMH039R47A2E2V
     toplevel: corescore_intel_agilex7
 
   intel_agia040r39a:
@@ -907,6 +959,16 @@ generate:
     generator: corescorecore
     parameters:
       count: 5525
+
+  corescorecore_intel_dk-si-agi027fb:
+    generator: corescorecore
+    parameters:
+      count: 5525
+
+  corescorecore_intel_agmh039r47a:
+    generator: corescorecore
+    parameters:
+      count: 7840
 
   corescorecore_intel_agia040r39a:
     generator: corescorecore

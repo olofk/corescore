@@ -3,7 +3,8 @@
 module corescore_intel_agilex7
 (
 // input  wire rstn,
- input  wire i_clk
+ input  wire i_clk,
+ input  wire i_rstn
  );
 
   wire        clk;
@@ -39,7 +40,7 @@ module corescore_intel_agilex7
   // Synchronize Reset
   // ================================================================
   always @(posedge clk) begin
-    if (!locked) begin
+    if (!locked || !i_rstn) begin
       rst_reg1 <= 1'b1;
       rst_reg2 <= 1'b1;
     end else begin
