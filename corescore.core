@@ -90,6 +90,30 @@ filesets:
       - data/intel_s10gx_pll.ip: { file_type: IP }
       - rtl/corescore_intel_s10gx_devkit.v: { file_type: verilogSource }
 
+  intel_agilex7:
+    files:
+      - data/intel_agilex7.tcl: { file_type: tclSource }
+      - data/intel_agilex7.sdc: { file_type: SDC }
+      - rtl/corescore_intel_agilex7.v: { file_type: verilogSource }
+
+  intel_dk-dev-agf014ea:
+    files:
+      - data/intel_dk-dev-agf014ea.tcl: { file_type: tclSource }
+      - data/intel_agilex7.sdc: { file_type: SDC }
+      - rtl/corescore_intel_agilex7.v: { file_type: verilogSource }
+
+  intel_dk-si-agi027fb:
+    files:
+      - data/intel_dk-si-agi027fb.tcl: { file_type: tclSource }
+      - data/intel_agilex7.sdc: { file_type: SDC }
+      - rtl/corescore_intel_agilex7.v: { file_type: verilogSource }
+
+  intel_dk-si-agi040fes:
+    files:
+      - data/intel_dk-si-agi040fes.tcl: { file_type: tclSource }
+      - data/intel_agilex7.sdc: { file_type: SDC }
+      - rtl/corescore_intel_agilex7.v: { file_type: verilogSource }
+
   sockit:
     files:
       - data/sockit.sdc: { file_type: SDC }
@@ -431,6 +455,39 @@ targets:
         family: Stratix 10
         device: 1SG280HU2F50E2VG
     toplevel: corescore_intel_s10gx_devkit
+
+  intel_dk-dev-agf014ea:
+    default_tool: quartus
+    description: Intel Agilex 7 FPGA F-Series Development Kit with 2950 cores + Jtag UART
+    filesets: [rtl, intel_dk-dev-agf014ea]
+    generate: [corescorecore_intel_agfb014r24b]
+    tools:
+      quartus:
+        family: Agilex
+        device: AGFB014R24B2E2V
+    toplevel: corescore_intel_agilex7
+
+  intel_dk-si-agi027fb:
+    default_tool: quartus
+    description: Intel Agilex 7 FPGA I-Series Transceiver-SoC Development Kit 5525 cores + Jtag UART
+    filesets: [rtl, intel_dk-si-agi027fb]
+    generate: [corescorecore_intel_dk-si-agi027fb]
+    tools:
+      quartus:
+        family: Agilex
+        device: AGIB027R31B1E1VAA
+    toplevel: corescore_intel_agilex7
+
+  intel_dk-si-agi040fes:
+    default_tool: quartus
+    description: Intel Agilex 7 FPGA I-Series Transceiver-SoC Development Kit 5525 cores + Jtag UART
+    filesets: [rtl, intel_dk-si-agi040fes]
+    generate: [corescorecore_intel_dk-si-agi040fes]
+    tools:
+      quartus:
+        family: Agilex
+        device: AGIC040R39A2E2VR0
+    toplevel: corescore_intel_agilex7
 
   sockit:
     default_tool: quartus
@@ -827,6 +884,21 @@ generate:
     generator: corescorecore
     parameters:
       count: 5600
+
+  corescorecore_intel_dk-dev-agf014ea:
+    generator: corescorecore
+    parameters:
+      count: 2970
+
+  corescorecore_intel_dk-si-agi027fb:
+    generator: corescorecore
+    parameters:
+      count: 5525
+
+  corescorecore_intel_dk-si-agi040fes:
+    generator: corescorecore
+    parameters:
+      count: 8225
 
   corescorecore_sockit:
     generator: corescorecore
