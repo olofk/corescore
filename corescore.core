@@ -334,6 +334,12 @@ filesets:
       - rtl/corescore_emitter_uart.v: { file_type: verilogSource }
       - data/go_board.pcf: { file_type: PCF }
 
+  xyloni:
+    files:
+      - rtl/corescore_emitter_uart.v: { file_type: verilogSource }
+      - rtl/corescore_xyloni.v : {file_type: verilogSource}
+      - data/xyloni.isf: {file_type : ISF}
+
 targets:
   alhambra_II:
     default_tool: icestorm
@@ -828,6 +834,17 @@ targets:
         pnr: next
         yosys_synth_options: [-dffe_min_ce_use, 8]
     toplevel: corescore_go_board
+
+  xyloni:
+    description: Efinix Xyloni Board
+    filesets: [rtl, xyloni]
+    flow: efinity
+    flow_options:
+      family: Trion
+      part: T8F81
+      timing: C2
+    generate: [corescorecore : {count: 17}]
+    toplevel : corescore_xyloni
 
 generate:
   corescorecore_alhambra_II:
