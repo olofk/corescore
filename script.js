@@ -14,10 +14,47 @@ function CoreTable() {
       .then(res => res.text())
       .then(text => {
         let gen = yaml.load(text).generate;
+        let targets = yaml.load(text).targets;
         let cores = []
-        for (let [k, v] of Object.entries(gen)) {
-          if (v.generator == 'corescorecore') {
-            cores.push({board:k.slice(14), score:v.parameters.count});
+
+        function countCores(name) {
+	  let pcount = 0;
+	  let ttptttg = undefined;
+	  /* Check if it is a generator with assigned values */
+	  if (name instanceof Object) {
+	      for (let x in name) {
+		  ttptttg = gen[x];
+		  pcount = name[x].count;
+	      }
+	  } else {
+      /* Find the referenced generator */
+	      ttptttg = gen[name];
+	  }
+
+	  /* Check if ttpttttg actually exists */
+	  if (typeof ttptttg == 'undefined') {
+	      return -1;
+	  }
+	  /* Check if generator is a corescorecore generator */
+	  if (ttptttg.generator !== "corescorecore") {
+	      return -1;
+	  }
+
+	  if (pcount) {
+	      return pcount;
+	  } else {
+	      return ttptttg.parameters.count;
+	  }
+      }
+
+         for (let [target_name, target] of Object.entries(targets)) {
+         if (target_name === "default") { continue; }
+         if (target_name === "sim") { continue; }
+         for (let gen_name of target.generate) {
+            let x = countCores(gen_name);
+            if (x > 0) {
+              cores.push({board:target_name, score:x});
+            }
           }
         }
         cores.sort((a,b) => b.score - a.score);
