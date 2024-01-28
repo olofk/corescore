@@ -183,6 +183,12 @@ module emitter
       .o_dbus_we    (wb_dbus_we),
       .o_dbus_cyc   (wb_dbus_cyc),
       .i_dbus_rdt   (wb_dbus_rdt),
-      .i_dbus_ack   (wb_dbus_ack));
+      .i_dbus_ack   (wb_dbus_ack),
 
+      .o_ext_funct3 (),
+      .i_ext_ready  (1'b0),
+      .i_ext_rd     (32'd0),
+      .o_ext_rs1    (),
+      .o_ext_rs2    (),
+      .o_mdu_valid  ());
 endmodule
