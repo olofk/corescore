@@ -1,9 +1,5 @@
 ![CoreScore logo](corescore.png)
 
-# CoreScore
-
-[![LibreCores](https://www.librecores.org/olofk/corescore/badge.svg?style=flat)](https://www.librecores.org/olofk/corescore)
-
 ## Background
 
 CoreScore is an award-giving benchmark for FPGAs and their synthesis/P&R tools. It tests how many [SERV](https://github.com/olofk/serv) cores that can be put into a particular FPGA.
