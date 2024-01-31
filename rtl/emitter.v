@@ -10,9 +10,6 @@ module emitter
    parameter memfile = "";
    parameter memsize = 256;
    parameter sim = 0;
-   parameter with_csr = 0;
-
-   wire 	timer_irq;
 
    wire [31:0] 	wb_ibus_adr;
    wire 	wb_ibus_cyc;
@@ -46,11 +43,6 @@ module emitter
    wire 	wb_gpio_dat;
    wire 	wb_gpio_cyc;
 //   wire 	wb_gpio_rdt;
-
-   wire [31:0] 	wb_timer_dat;
-   wire 	wb_timer_we;
-   wire 	wb_timer_cyc;
-   wire [31:0] 	wb_timer_rdt;
 
    wire [0:0]	wb_fifo_sel;
    wire 	wb_fifo_stb;
@@ -102,10 +94,10 @@ module emitter
       .o_wb_gpio_cyc (wb_gpio_cyc),
 //      .i_wb_gpio_rdt (wb_gpio_rdt),
 
-      .o_wb_timer_dat (wb_timer_dat),
-      .o_wb_timer_we  (wb_timer_we),
-      .o_wb_timer_cyc (wb_timer_cyc),
-      .i_wb_timer_rdt (wb_timer_rdt),
+      .o_wb_timer_dat (),
+      .o_wb_timer_we  (),
+      .o_wb_timer_cyc (),
+      .i_wb_timer_rdt (32'd0),
 
       .o_wb_fifo_sel (wb_fifo_sel),
       .o_wb_fifo_stb (wb_fifo_stb),
@@ -114,6 +106,7 @@ module emitter
 
    servant_ram
      #(.memfile (memfile),
+       .RESET_STRATEGY ("MINI"),
        .depth (memsize))
    ram
      (// Wishbone interface
@@ -126,23 +119,6 @@ module emitter
       .i_wb_dat (wb_mem_dat),
       .o_wb_rdt (wb_mem_rdt),
       .o_wb_ack (wb_mem_ack));
-
-   generate
-      if (with_csr) begin
-	 servant_timer
-	   #(.WIDTH (32))
-	 timer
-	   (.i_clk    (i_clk),
-	    .o_irq    (timer_irq),
-	    .i_wb_cyc (wb_timer_cyc),
-	    .i_wb_we  (wb_timer_we) ,
-	    .i_wb_dat (wb_timer_dat),
-	    .o_wb_dat (wb_timer_rdt));
-      end else begin
-	 assign wb_timer_rdt = 32'd0;
-	 assign timer_irq = 1'b0;
-      end
-   endgenerate
 
    servant_gpio gpio
      (.i_wb_clk (i_clk),
@@ -166,12 +142,12 @@ module emitter
 
    serv_rf_top
      #(.RESET_PC (32'h0000_0000),
-       .WITH_CSR (with_csr))
+       .WITH_CSR (0))
    cpu
      (
       .clk      (i_clk),
       .i_rst    (i_rst),
-      .i_timer_irq  (timer_irq),
+      .i_timer_irq  (1'b0),
 `ifdef RISCV_FORMAL
       .rvfi_valid     (),
       .rvfi_order     (),
