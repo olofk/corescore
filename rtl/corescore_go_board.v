@@ -35,12 +35,12 @@ module corescore_go_board
       .o_tvalid  (tvalid),
       .i_tready  (tready));
 
-   corescore_emitter_uart #(.clk_freq_hz (25_000_000)) emitter
+   emitter_uart #(.clk_freq_hz (25_000_000)) emitter
      (.i_clk     (i_clk),
       .i_rst     (rst_r),
-      .i_data    (tdata),
-      .i_valid   (tvalid),
-      .o_ready   (tready),
+      .i_tdata   (tdata),
+      .i_tvalid  (tvalid),
+      .o_tready  (tready),
       .o_uart_tx (o_uart_tx));
 
 endmodule
