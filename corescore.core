@@ -5,6 +5,7 @@ name: ::corescore:0
 filesets:
   base:
     files:
+      - rtl/dpram.v
       - rtl/servcle_entry.v
       - rtl/token_hold.v
       - rtl/wb2axis.v
@@ -712,8 +713,8 @@ targets:
   nexys_a7:
     default_tool: vivado
     description: Digilent Nexys A7 with 268 cores + SERV emitter
-    filesets: [base, emitter_serv, nexys_a7]
-    generate: [corescorecore: {count: 268}]
+    filesets: [base, emitter_uart, nexys_a7]
+    generate: [corescorecore: {count: 300}]
     tools:
       vivado: { part: xc7a100tcsg324-1 }
     toplevel: corescore_nexys_a7
@@ -751,7 +752,7 @@ targets:
   sim:
     default_tool: verilator
     description: Verilator testbench with 10 cores + SERV emitter
-    filesets: [base, emitter_serv, generic, tb]
+    filesets: [base, emitter_uart, generic, tb]
     generate: [corescorecore: {count: 10}]
     parameters: [uart_baudrate=57600, vcd]
     tools:

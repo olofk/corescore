@@ -82,6 +82,30 @@ e3 9e 02 fe
 6F 0A 00 00
 '''
 
+HEX_TEMPLATE2 = '''@0100
+13 00 00 00
+17 05 00 00
+13 05 c5 03
+b7 05 00 c0
+93 02 70 0b
+23 80 55 00
+83 02 05 00
+13 05 15 00
+e3 9a 02 fe
+93 e2 02 10
+23 90 55 00
+b7 22 00 00
+93 82 02 71
+93 82 f2 ff
+e3 9e 02 fe
+6f f0 5f fc
+43 6F 72 65
+20 {} {} {}
+{} {} 20 73
+61 79 73 20
+68 65 6C 6C
+6F 0A 00 00
+'''
 
 class CoreScoreCoreGenerator(Generator):
     def run(self):
@@ -96,6 +120,12 @@ class CoreScoreCoreGenerator(Generator):
             with open(memfile, 'w') as f:
                 _s = '{:05}'.format(idx)
                 f.write(HEX_TEMPLATE.format(hex(ord(_s[0]))[2:],
+                                            hex(ord(_s[1]))[2:],
+                                            hex(ord(_s[2]))[2:],
+                                            hex(ord(_s[3]))[2:],
+                                            hex(ord(_s[4]))[2:]))
+                _s = '{:05}'.format(idx+1)
+                f.write(HEX_TEMPLATE2.format(hex(ord(_s[0]))[2:],
                                             hex(ord(_s[1]))[2:],
                                             hex(ord(_s[2]))[2:],
                                             hex(ord(_s[3]))[2:],
@@ -126,6 +156,12 @@ class CoreScoreCoreGenerator(Generator):
             corescorecore.add(Wire(f'data{idx}' , 8))
             corescorecore.add(Wire(f'valid{idx}'))
             corescorecore.add(Wire(f'token{idx}'))
+
+            corescorecore.add(Wire('waddr'+str(idx), 8))
+            corescorecore.add(Wire('wdata'+str(idx), 8))
+            corescorecore.add(Wire('wen'+str(idx)))
+            corescorecore.add(Wire('raddr'+str(idx), 8))
+            corescorecore.add(Wire('rdata'+str(idx), 8))
 
             if idx == 0:
                 idata  = "8'd0"
@@ -178,12 +214,52 @@ class CoreScoreCoreGenerator(Generator):
                 Port('o_last' , ""),
                 Port('o_valid', ovalid),
                 Port('o_token', otoken),
+                Port('o_waddr', 'waddr'+str(idx)),
+                Port('o_wdata', 'wdata'+str(idx)),
+                Port('o_wen'  , 'wen'+str(idx)),
+                Port('o_raddr', 'raddr'+str(idx)),
+                Port('i_rdata', 'rdata'+str(idx))
             ]
             corescorecore.add(Instance('base', 'core_'+str(idx),
                                        [Parameter('memfile', '"core_{}.hex"'.format(idx)),
                                         Parameter('memsize', '256'),
                                         Parameter("TOKEN_INIT", "1'b1" if idx == 0 else "1'b0")],
                                        base_ports))
+
+        for idx in range(0, count, 2):
+
+            ram_ports = [
+                Port('clka' , 'i_clk'),
+                Port('ena'  , "1'b1"),
+                Port('wea'  , 'wen'+str(idx)),
+                Port('addra', "{1'b0,"+f"wen{idx} ? waddr{idx} : raddr{idx}"+'}'),
+                Port('dia'  , 'wdata'+str(idx)),
+                Port('doa'  , 'rdata'+str(idx)),
+                Port('clkb' , 'i_clk'),
+                Port('enb'  , "1'b1"),
+                Port('web'  , 'wen'+str(idx+1)),
+                Port('addrb', "{1'b1,"+f"wen{idx+1} ? waddr{idx+1} : raddr{idx+1}"+'}'),
+                Port('dib'  , 'wdata'+str(idx+1)),
+                Port('dob'  , 'rdata'+str(idx+1)),
+            ]
+
+            corescorecore.add(Instance('rams_tdp_rf_rf', 'ram_'+str(idx),
+                                       [Parameter('memfile', '"core_{}.hex"'.format(idx))],
+                                       ram_ports))
+        #for idx in range(count):
+        #
+        #    ram_ports = [
+        #        Port('i_clk'  , 'i_clk'),
+        #        Port('i_waddr', 'waddr'+str(idx)),
+        #        Port('i_wdata', 'wdata'+str(idx)),
+        #        Port('i_wen'  , 'wen'+str(idx)),
+        #        Port('i_raddr', 'raddr'+str(idx)),
+        #        Port('o_rdata', 'rdata'+str(idx))]
+        #
+        #    corescorecore.add(Instance('serving_ram', 'ram_'+str(idx),
+        #                               [Parameter('memfile', '"core_{}.hex"'.format(idx)),
+        #                                Parameter('depth', '256')],
+        #                               ram_ports))
 
         fifoports = [
             Port("clk", "i_clk"),
