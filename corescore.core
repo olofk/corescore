@@ -370,7 +370,7 @@ targets:
   arty_a7_100t:
     default_tool: vivado
     description: Digilent Arty A7 100t with 306 cores + SERV emitter
-    filesets: [base, emitter_serv, arty_a7]
+    filesets: [base, emitter_uart, arty_a7]
     generate: [corescorecore: {count: 306}]
     tools:
       vivado: { part: xc7a100tcsg324-1 }
