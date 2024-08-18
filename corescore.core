@@ -22,6 +22,12 @@ filesets:
   emitter_uart:
     files: [rtl/emitter_uart.v : {file_type: verilogSource}]
 
+  agilex5_dk-a5e065bb32aes1:
+    files:
+      - data/agilex5_dk-a5e065bb32aes1.tcl: { file_type: tclSource }
+      - data/intel_agilex7.sdc: { file_type: SDC }
+      - rtl/corescore_intel_agilex7.v: { file_type: verilogSource }
+
   alhambra_II:
     files:
       - rtl/corescore_alhambra_II.v: { file_type: verilogSource }
@@ -345,6 +351,18 @@ filesets:
       - data/zcu106.xdc: { file_type: xdc }
 
 targets:
+
+  agilex5_dk-a5e065bb32aes1:
+    default_tool: quartus
+    description: Agilex 5 E-Seried Premium Development Kit with Jtag UART
+    filesets: [base, agilex5_dk-a5e065bb32aes1]
+    generate: [corescorecore: {count: 1000}]
+    tools:
+      quartus:
+        family: Agilex
+        device: A5ED065BB32AE6SR0
+    toplevel: corescore_intel_agilex7
+
   alhambra_II:
     default_tool: icestorm
     description: Alhambra II iCE40-HX4K based open-source hardware board
