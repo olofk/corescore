@@ -356,7 +356,7 @@ targets:
     default_tool: quartus
     description: Agilex 5 E-Seried Premium Development Kit with Jtag UART
     filesets: [base, agilex5_dk-a5e065bb32aes1]
-    generate: [corescorecore: {count: 1000}]
+    generate: [corescorecore: {count: 1327}]
     tools:
       quartus:
         family: Agilex
