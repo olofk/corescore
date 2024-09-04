@@ -574,7 +574,7 @@ targets:
     description: Lattice iCE40-HX8K development board
     filesets: [base, emitter_serv, hx8k]
     generate:
-      - corescorecore_hx8k: {count: 12}
+      - corescorecore: {count: 12}
       - ice40pll : {freq_in: 12}
     tools:
       icestorm:
