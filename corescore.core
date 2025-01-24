@@ -224,6 +224,12 @@ filesets:
       - data/intel_agilex7.sdc: { file_type: SDC }
       - rtl/corescore_intel_agilex7.v: { file_type: verilogSource }
 
+  thunderfjord:
+    files:
+      - data/thunderfjord.tcl: { file_type: tclSource }
+      - data/intel_agilex7.sdc: { file_type: SDC }
+      - rtl/corescore_intel_agilex7.v: { file_type: verilogSource }
+
   intel_max10_devkit:
     files:
       - data/intel_max10_devkit.tcl: { file_type: tclSource }
@@ -672,6 +678,17 @@ targets:
       quartus:
         family: Agilex
         device: AGIC040R39A2E2VR0
+    toplevel: corescore_intel_agilex7
+
+  thunderfjord_agm039:
+    default_tool: quartus
+    description: Silicom FPGA SmartNIC FB2CDG1@AGM39D-2
+    filesets: [base, thunderfjord]
+    generate: [corescorecore: {count: 6666}]
+    tools:
+      quartus:
+        family: Agilex
+        device: AGMF039R47A2E2VR0
     toplevel: corescore_intel_agilex7
 
   intel_max10_devkit:
