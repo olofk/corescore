@@ -300,6 +300,13 @@ filesets:
       - rtl/storeypeak_clock_gen.v: { file_type: verilogSource }
       - rtl/corescore_storeypeak.v: { file_type: verilogSource }
 
+  tang_nano_20k:
+    files:
+      - rtl/tang_nano_20k_clock_gen.v: { file_type: verilogSource }
+      - rtl/corescore_tang_nano_20k.v: { file_type: verilogSource }
+      - data/tang_nano_20k.sdc: { file_type: SDC }
+      - data/tang_nano_20k.cst: { file_type: CST }
+
   tb:
     files:
       - tb/corescore_tb.cpp: { file_type: cppSource }
@@ -813,6 +820,21 @@ targets:
         family: Stratix V
         device: 5SGSMD5K1F40C2
     toplevel: corescore_storeypeak
+
+  tang_nano_20k:
+    # Use openFPGALoader to program the project.fs file to the FPGA
+    # Onboard bl616 UART can't keep up above ~5 cores, use external FTDI adapter
+    default_tool: gowin
+    description: Sipeed Tang Nano 20K Development board
+    filesets: [base, emitter_serv, tang_nano_20k]
+    generate: [corescorecore: {count: 45}]
+    flow: gowin
+    flow_options:
+      tool: gowin
+      part: GW2AR-LV18QN88C8/I7
+      gowin_options:
+        - -multi_boot 1
+    toplevel: corescore_tang_nano_20k
 
   tinyfpga_bx:
     default_tool: icestorm
