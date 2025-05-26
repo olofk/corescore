@@ -41,6 +41,13 @@ filesets:
       - data/vivado_waive.tcl: { file_type: tclSource }
       - data/arty_a7.xdc: { file_type: xdc }
 
+  axku5:
+    files:
+      - rtl/corescore_axku5.v: { file_type: verilogSource }
+      - rtl/corescore_axku5_clock_gen.v: { file_type: verilogSource }
+      - data/vivado_waive.tcl: { file_type: tclSource }
+      - data/axku5.xdc: { file_type: xdc }
+
   chameleon96:
     files:
       - data/chameleon96/chameleon96.sdc : {file_type : SDC}
@@ -406,6 +413,15 @@ targets:
     tools:
       vivado: { part: xc7a100tcsg324-1 }
     toplevel: corescore_arty_a7
+
+  axku5:
+    description: Alinx AXKU5 Evaluation board with 1085 cores + SERV emitter
+    filesets: [base, emitter_serv, axku5]
+    generate: [corescorecore: {count: 1085}]
+    flow: vivado
+    flow_options:
+      part: xcku5p-ffvb676-2-i
+    toplevel: corescore_axku5
 
   chameleon96:
     default_tool : quartus
