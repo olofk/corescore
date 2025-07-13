@@ -41,6 +41,12 @@ filesets:
       - data/vivado_waive.tcl: { file_type: tclSource }
       - data/arty_a7.xdc: { file_type: xdc }
 
+  axe5000:
+    files:
+      - data/axe5000.tcl: { file_type: tclSource }
+      - data/axe5000.sdc: { file_type: SDC }
+      - rtl/corescore_axe5000.v: { file_type: verilogSource }
+
   chameleon96:
     files:
       - data/chameleon96/chameleon96.sdc : {file_type : SDC}
@@ -399,6 +405,17 @@ targets:
     tools:
       vivado: { part: xc7a100tcsg324-1 }
     toplevel: corescore_arty_a7
+
+  axe5000:
+    default_tool: quartus
+    description: Agilex 5 based Arrow AXE5000 board
+    filesets: [base, axe5000]
+    generate: [corescorecore: {count: 172}]
+    tools:
+      quartus:
+        family: Agilex 5
+        device: A5EC008BM16AE6S
+    toplevel: corescore_axe5000
 
   chameleon96:
     default_tool : quartus
