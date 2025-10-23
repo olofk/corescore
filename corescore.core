@@ -430,7 +430,7 @@ targets:
     default_tool: quartus
     description: Agilex 3 based Terasic Atum A3 Nano board
     filesets: [base, atum_a3_nano]
-    generate: [corescorecore: {count: 282}]
+    generate: [corescorecore: {count: 281}]
     tools:
       quartus:
         family: Agilex 3
