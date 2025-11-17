@@ -305,6 +305,14 @@ filesets:
       - data/libero-post-instructions.txt:
           { file_type: user, copyto: post-instructions.txt }
 
+  scu35:
+    files:
+      - rtl/corescore_scu35_clock_gen.v: { file_type: verilogSource }
+      - rtl/corescore_scu35.v: { file_type: verilogSource }
+      - data/vivado_waive.tcl: { file_type: tclSource }
+      - data/scu35.xdc: { file_type: xdc }
+
+
   sockit:
     files:
       - data/sockit.sdc: { file_type: SDC }
@@ -848,6 +856,14 @@ targets:
       libero:
         <<: *liberoMPF300
         die: MPF300TS_ES
+
+  scu35:
+    default_tool: vivado
+    filesets: [base, emitter_serv, scu35]
+    generate: [corescorecore: {count: 83}]
+    tools:
+      vivado: { part: xcsu35p-sbvb625-2-e }
+    toplevel: corescore_scu35
 
   sim:
     default_tool: verilator
