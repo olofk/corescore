@@ -8,7 +8,7 @@ filesets:
       - rtl/wb2axis.v
       - rtl/base.v
     file_type: verilogSource
-    depend: ["=::serv:1.0.2", "=::serving:1.0.2", verilog-axis]
+    depend: [serv, serving, verilog-axis]
 
   emitter_serv:
     files:
@@ -17,7 +17,7 @@ filesets:
       - rtl/emitter_mux.v
       - rtl/emitter.v
     file_type: verilogSource
-    depend: ["=::servant:1.0.2-r1"]
+    depend: [servant]
 
   emitter_uart:
     files: [rtl/emitter_uart.v : {file_type: verilogSource}]
@@ -155,6 +155,11 @@ filesets:
       - rtl/corescore_genesys2.v: { file_type: verilogSource }
       - data/vivado_waive.tcl: { file_type: tclSource }
       - data/genesys2.xdc: { file_type: xdc }
+
+  gmm7550:
+    files:
+      - rtl/corescore_gmm7550.v: { file_type: verilogSource }
+      - data/gmm7550.ccf: { file_type: CCF }
 
   go_board:
     files:
@@ -604,6 +609,19 @@ targets:
     tools:
       vivado: { part: xc7k325tffg900-2 }
     toplevel: corescore_genesys2
+
+  gmm7550:
+    description: CologneChip GateMate FPGA Module
+    default_tool: gatemate
+    filesets: [base, emitter_serv, gmm7550]
+    toplevel: corescore_gmm7550
+    generate: [corescorecore: {count: 1}]
+    tools:
+      gatemate:
+        device: CCGM1A1
+        yosys_synth_options: [ -luttree -nomx8 ]
+        nextpnr_options: [ --router router2 ]
+        nextpnr_log_file: nextpnr.log
 
   go_board:
     default_tool: icestorm
