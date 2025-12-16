@@ -616,12 +616,9 @@ targets:
     filesets: [base, emitter_serv, gmm7550]
     toplevel: corescore_gmm7550
     generate: [corescorecore: {count: 1}]
-    tools:
-      gatemate:
+    flow: gatemate
+    flow_options:
         device: CCGM1A1
-        yosys_synth_options: [ -luttree -nomx8 ]
-        nextpnr_options: [ --router router2 ]
-        nextpnr_log_file: nextpnr.log
 
   go_board:
     default_tool: icestorm
