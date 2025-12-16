@@ -615,10 +615,11 @@ targets:
     default_tool: gatemate
     filesets: [base, emitter_serv, gmm7550]
     toplevel: corescore_gmm7550
-    generate: [corescorecore: {count: 1}]
+    generate: [corescorecore: {count: 57}]
     flow: gatemate
     flow_options:
         device: CCGM1A1
+        nextpnr_options: [ --placer-heap-cell-placement-timeout 0 --placer-heap-alpha 0.05 --placer-heap-beta 0.4 ]
 
   go_board:
     default_tool: icestorm
