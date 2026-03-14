@@ -305,6 +305,14 @@ filesets:
       - data/libero-post-instructions.txt:
           { file_type: user, copyto: post-instructions.txt }
 
+  qm_xcvu13p:
+    files:
+      - rtl/qm_xcvu13p_clock_gen.v: { file_type: verilogSource }
+      - rtl/corescore_qm_xcvu13p.v: { file_type: verilogSource }
+      - data/vivado_waive.tcl: { file_type: tclSource }
+      - data/qm_xcvu13p.xdc: { file_type: xdc }
+      - data/qm_xcvu13p_settings.tcl: { file_type: tclSource }
+
   sockit:
     files:
       - data/sockit.sdc: { file_type: SDC }
@@ -848,6 +856,14 @@ targets:
       libero:
         <<: *liberoMPF300
         die: MPF300TS_ES
+
+  qm_xcvu13p:
+    default_tool: vivado
+    filesets: [base, emitter_serv, qm_xcvu13p]
+    generate: [corescorecore: {count: 8300}]
+    tools:
+      vivado: { part: xcvu13p-fhga2104-2-e }
+    toplevel: corescore_qm_xcvu13p
 
   sim:
     default_tool: verilator
