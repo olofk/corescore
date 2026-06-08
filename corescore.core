@@ -111,6 +111,12 @@ filesets:
       - rtl/de0_nano_clock_gen.v: { file_type: verilogSource }
       - rtl/corescore_de10_nano.v: { file_type: verilogSource }
 
+  de25_nano:
+    files:
+      - data/de25_nano.tcl: { file_type: tclSource }
+      - data/agilex50MHz.sdc: { file_type: SDC }
+      - rtl/corescore_agilex.v: { file_type: verilogSource }
+
   de5_net:
     files:
       - data/de5_net.sdc: { file_type: SDC }
@@ -544,6 +550,17 @@ targets:
         device: 5CSEBA6U23I7
         board_device_index : 2
     toplevel: corescore_de10_nano
+
+  de25_nano:
+    default_tool: quartus
+    description: Terasic DE25-Nano Agilex 5 with JTAG UART
+    filesets: [base, de25_nano]
+    generate: [corescorecore: {count: 298}]
+    tools:
+      quartus:
+        family: Agilex 5
+        device: A5EB013BB23BE4SR1
+    toplevel: corescore_agilex
 
   de5_net:
     default_tool: quartus
